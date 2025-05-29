@@ -1,0 +1,266 @@
+{
+  "pillars": {
+    "business-impact": {
+      "id": "business-impact",
+      "name": "Business Impact Metrics",
+      "description": "Directly links technology performance to revenue, retention, and growth.",
+      "category": "critical",
+      "metrics": [
+        {
+          "name": "Revenue Impact",
+          "description": "Revenue attributable to system performance",
+          "value": 85,
+          "unit": "%",
+          "status": "good"
+        },
+        {
+          "name": "Customer Retention",
+          "description": "Customer retention rate",
+          "value": 92,
+          "unit": "%",
+          "status": "good"
+        },
+        {
+          "name": "Deployment Delay Cost",
+          "description": "Cost impact of deployment delays",
+          "value": 45,
+          "unit": "k",
+          "status": "warning"
+        }
+      ]
+    },
+    "dev-health": {
+      "id": "dev-health",
+      "name": "Development & Deployment Health",
+      "description": "Measures the efficiency and reliability of development processes.",
+      "category": "critical",
+      "metrics": [
+        {
+          "name": "Deployment Frequency",
+          "description": "Number of deployments per day",
+          "value": 12,
+          "unit": "/day",
+          "status": "good"
+        },
+        {
+          "name": "Lead Time",
+          "description": "Time from commit to production",
+          "value": 2.5,
+          "unit": "days",
+          "status": "warning"
+        },
+        {
+          "name": "Change Failure Rate",
+          "description": "Percentage of deployments causing failures",
+          "value": 5,
+          "unit": "%",
+          "status": "good"
+        }
+      ]
+    },
+    "security": {
+      "id": "security",
+      "name": "Security & Access Management",
+      "description": "Evaluates the effectiveness of security measures and access controls.",
+      "category": "critical",
+      "metrics": [
+        {
+          "name": "Security Score",
+          "description": "Overall security posture score",
+          "value": 88,
+          "unit": "%",
+          "status": "good"
+        },
+        {
+          "name": "Vulnerability Count",
+          "description": "Number of open vulnerabilities",
+          "value": 3,
+          "unit": "",
+          "status": "warning"
+        },
+        {
+          "name": "Access Violations",
+          "description": "Number of unauthorized access attempts",
+          "value": 2,
+          "unit": "",
+          "status": "good"
+        }
+      ]
+    },
+    "continuity": {
+      "id": "continuity",
+      "name": "Business Continuity",
+      "description": "Assesses the resilience and recovery capabilities of systems.",
+      "category": "critical",
+      "metrics": [
+        {
+          "name": "Uptime",
+          "description": "System availability percentage",
+          "value": 99.9,
+          "unit": "%",
+          "status": "good"
+        },
+        {
+          "name": "Recovery Time",
+          "description": "Average time to recover from failures",
+          "value": 15,
+          "unit": "min",
+          "status": "good"
+        },
+        {
+          "name": "Backup Success Rate",
+          "description": "Percentage of successful backups",
+          "value": 100,
+          "unit": "%",
+          "status": "good"
+        }
+      ]
+    },
+    "sales-pipeline": {
+      "id": "sales-pipeline",
+      "name": "Sales Pipeline Alignment",
+      "description": "Measures how well technology supports sales processes.",
+      "category": "strategic",
+      "metrics": [
+        {
+          "name": "Pipeline Velocity",
+          "description": "Speed of deal progression",
+          "value": 75,
+          "unit": "%",
+          "status": "good"
+        },
+        {
+          "name": "Conversion Rate",
+          "description": "Lead to opportunity conversion",
+          "value": 35,
+          "unit": "%",
+          "status": "warning"
+        },
+        {
+          "name": "Sales Cycle Time",
+          "description": "Average time to close deals",
+          "value": 45,
+          "unit": "days",
+          "status": "good"
+        }
+      ]
+    },
+    "sla-compliance": {
+      "id": "sla-compliance",
+      "name": "SLA & Contractual Compliance",
+      "description": "Tracks adherence to service level agreements and contracts.",
+      "category": "strategic",
+      "metrics": [
+        {
+          "name": "SLA Compliance",
+          "description": "Percentage of SLAs met",
+          "value": 98,
+          "unit": "%",
+          "status": "good"
+        },
+        {
+          "name": "Contract Renewal Rate",
+          "description": "Rate of contract renewals",
+          "value": 92,
+          "unit": "%",
+          "status": "good"
+        },
+        {
+          "name": "Response Time",
+          "description": "Average response time to issues",
+          "value": 30,
+          "unit": "min",
+          "status": "warning"
+        }
+      ]
+    },
+    "cost-control": {
+      "id": "cost-control",
+      "name": "Cost Control & Optimisation",
+      "description": "Monitors technology spending and optimization efforts.",
+      "category": "strategic",
+      "metrics": [
+        {
+          "name": "Cost Efficiency",
+          "description": "Cost per transaction",
+          "value": 0.15,
+          "unit": "$",
+          "status": "good"
+        },
+        {
+          "name": "Resource Utilization",
+          "description": "Percentage of resources utilized",
+          "value": 85,
+          "unit": "%",
+          "status": "good"
+        },
+        {
+          "name": "Cost Savings",
+          "description": "Total cost savings achieved",
+          "value": 250,
+          "unit": "k",
+          "status": "good"
+        }
+      ]
+    },
+    "exec-decision": {
+      "id": "exec-decision",
+      "name": "Executive Decision Support",
+      "description": "Evaluates how well technology supports executive decision-making.",
+      "category": "strategic",
+      "metrics": [
+        {
+          "name": "Data Quality",
+          "description": "Quality score of decision support data",
+          "value": 90,
+          "unit": "%",
+          "status": "good"
+        },
+        {
+          "name": "Report Accuracy",
+          "description": "Accuracy of executive reports",
+          "value": 95,
+          "unit": "%",
+          "status": "good"
+        },
+        {
+          "name": "Decision Time",
+          "description": "Average time to make decisions",
+          "value": 2,
+          "unit": "days",
+          "status": "warning"
+        }
+      ]
+    },
+    "policy-control": {
+      "id": "policy-control",
+      "name": "Policy & Control Effectiveness",
+      "description": "Assesses the effectiveness of policies and controls.",
+      "category": "strategic",
+      "metrics": [
+        {
+          "name": "Policy Compliance",
+          "description": "Percentage of policies followed",
+          "value": 96,
+          "unit": "%",
+          "status": "good"
+        },
+        {
+          "name": "Control Effectiveness",
+          "description": "Effectiveness of implemented controls",
+          "value": 88,
+          "unit": "%",
+          "status": "good"
+        },
+        {
+          "name": "Audit Score",
+          "description": "Overall audit performance score",
+          "value": 92,
+          "unit": "%",
+          "status": "good"
+        }
+      ]
+    }
+  },
+  "lastUpdated": "2024-03-19T12:00:00Z"
+} 
