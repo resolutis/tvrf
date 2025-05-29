@@ -2,15 +2,17 @@ import {
   Box,
   Card,
   CardContent,
-  Grid,
   Typography,
   LinearProgress,
   Chip,
+  Grid,
 } from '@mui/material';
-import type { Metric, Pillar } from '../types/tvrf';
+import type { Pillar } from '../types/tvrf';
+import GrafanaEmbed from './GrafanaEmbed';
 
 interface PillarDashboardProps {
   pillar: Pillar;
+  grafanaBaseUrl?: string;
 }
 
 const getStatusColor = (status?: string) => {
@@ -26,7 +28,7 @@ const getStatusColor = (status?: string) => {
   }
 };
 
-export default function PillarDashboard({ pillar }: PillarDashboardProps) {
+export default function PillarDashboard({ pillar, grafanaBaseUrl }: PillarDashboardProps) {
   return (
     <Box>
       <Typography variant="h4" gutterBottom>
@@ -38,7 +40,7 @@ export default function PillarDashboard({ pillar }: PillarDashboardProps) {
       <Box sx={{ mt: 4 }}>
         <Grid container spacing={3}>
           {pillar.metrics.map((metric, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+            <Grid key={index} sx={{ width: { xs: '100%', sm: '50%', md: '33.33%' } }}>
               <Card>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
@@ -77,6 +79,15 @@ export default function PillarDashboard({ pillar }: PillarDashboardProps) {
                       size="small"
                       sx={{ mt: 2 }}
                     />
+                  )}
+                  {metric.grafana && grafanaBaseUrl && (
+                    <Box sx={{ mt: 2 }}>
+                      <GrafanaEmbed
+                        config={metric.grafana}
+                        baseUrl={grafanaBaseUrl}
+                        title={`${metric.name} Graph`}
+                      />
+                    </Box>
                   )}
                 </CardContent>
               </Card>

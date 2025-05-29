@@ -4,6 +4,18 @@ export interface Metric {
   value?: number;
   unit?: string;
   status?: "good" | "warning" | "critical";
+  grafana?: GrafanaConfig;
+}
+
+export interface GrafanaConfig {
+  dashboardUid: string;
+  panelId: number;
+  from?: string;
+  to?: string;
+  refresh?: string;
+  theme?: "light" | "dark";
+  height?: number;
+  width?: number;
 }
 
 export interface Pillar {
@@ -17,6 +29,10 @@ export interface Pillar {
 export interface TVRFData {
   pillars: Pillar[];
   lastUpdated: string;
+  grafanaConfig?: {
+    baseUrl: string;
+    apiKey?: string;
+  };
 }
 
 export const PILLAR_CATEGORIES = {

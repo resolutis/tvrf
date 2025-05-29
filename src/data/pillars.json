@@ -25,7 +25,13 @@
           "description": "Cost impact of deployment delays",
           "value": 45,
           "unit": "k",
-          "status": "warning"
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "deployment-costs",
+            "panelId": 3,
+            "height": 300,
+            "refresh": "10m"
+          }
         }
       ]
     },
@@ -40,21 +46,39 @@
           "description": "Number of deployments per day",
           "value": 12,
           "unit": "/day",
-          "status": "good"
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "deployment-metrics",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1m"
+          }
         },
         {
           "name": "Lead Time",
           "description": "Time from commit to production",
           "value": 2.5,
           "unit": "days",
-          "status": "warning"
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "lead-time-metrics",
+            "panelId": 2,
+            "height": 300,
+            "refresh": "5m"
+          }
         },
         {
           "name": "Change Failure Rate",
           "description": "Percentage of deployments causing failures",
           "value": 5,
           "unit": "%",
-          "status": "good"
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "failure-metrics",
+            "panelId": 3,
+            "height": 300,
+            "refresh": "10m"
+          }
         }
       ]
     },
@@ -262,5 +286,8 @@
       ]
     }
   },
-  "lastUpdated": "2024-03-19T12:00:00Z"
+  "lastUpdated": "2024-03-19T12:00:00Z",
+  "grafanaConfig": {
+    "baseUrl": "http://localhost:3000"
+  }
 } 
