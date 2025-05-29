@@ -1,37 +1,42 @@
-const AWS = require("aws-sdk");
-const docClient = new AWS.DynamoDB.DocumentClient();
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient, GetCommand } = require('@aws-sdk/lib-dynamodb');
+
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
 exports.handler = async (event) => {
-  const { username, password } = JSON.parse(event.body || '{}');
-
-  if (!username || !password) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: "Username and password are required." }),
-    };
-  }
-
   try {
-    const result = await docClient.get({
-      TableName: "users",
+    const { username, password } = JSON.parse(event.body);
+
+    if (!username || !password) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: 'Username and password are required' }),
+      };
+    }
+
+    const params = {
+      TableName: 'users',
       Key: { username },
-    }).promise();
+    };
+
+    const result = await docClient.send(new GetCommand(params));
 
     if (!result.Item || result.Item.password !== password) {
       return {
         statusCode: 401,
-        body: JSON.stringify({ error: "Invalid username or password." }),
+        body: JSON.stringify({ message: 'Invalid username or password.' }),
       };
     }
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Login successful." }),
+      body: JSON.stringify({ message: 'Login successful.' }),
     };
   } catch (err) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Internal Server Error", detail: err.message }),
+      body: JSON.stringify({ message: 'Internal Server Error', error: err.name, detail: err.message }),
     };
   }
 };
