@@ -3,26 +3,219 @@
     "business-impact": {
       "id": "business-impact",
       "name": "Business Impact Metrics",
-      "description": "Directly links technology performance to revenue, retention, and growth.",
+      "description": "Directly links technology performance to revenue, retention, and growth. [cite: 1]",
+      "explanation": "This pillar quantifies how technical decisions and system performance directly impact business outcomes. It bridges the gap between IT investments and financial results, enabling data-driven decisions about technology priorities and resource allocation. [cite: 1, 11, 12]",
       "category": "critical",
       "metrics": [
         {
           "name": "Revenue Impact",
           "description": "Revenue attributable to system performance",
+          "explanation": "Measures the percentage of total revenue that depends on reliable system performance. Higher values indicate greater business dependency on technical infrastructure. Range: 0-100%, where >80% is good, 60-80% is acceptable, <60% may indicate underutilized technology or measurement gaps.",
+          "value": 85,
+          "unit": "$",
+          "status": "good",
+          "metricRationale": "Directly quantifies the financial contribution of technology system reliability and performance to the business's top line, crucial for justifying tech investments. [cite: 1, 12]",
+          "dataSourceProfile": {
+            "primaryCategory": "Financial",
+            "specificDataPoints": ["Total revenue figures", "System uptime records", "Service availability data", "Customer transaction logs linked to system performance"],
+            "collectionGuidance": [
+              {
+                "methodType": "Integration with Financial Systems & Monitoring Tools",
+                "toolExamples": ["ERP/CRM data", "AWS CloudWatch [cite: 15]", "Datadog [cite: 15]", "Google Cloud Operations [cite: 15]"],
+                "notes": "Requires correlation between operational performance metrics and financial reporting periods."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Resource Utilization",
+          "description": "Percentage of resources utilized",
+          "explanation": "Average utilization of computing resources including CPU, memory, and storage across all systems. Optimal utilization balances performance with cost efficiency. Range: 40-95%, where 70-85% is optimal, 60-70% is acceptable, <60% indicates over-provisioning, >85% risks performance issues.",
           "value": 85,
           "unit": "%",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "Indicates the efficiency of infrastructure spending and capacity planning, directly impacting operational costs and resource allocation effectiveness. [cite: 1, 3]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["CPU utilization", "Memory usage", "Storage capacity usage", "Network bandwidth consumption"],
+            "collectionGuidance": [
+              {
+                "methodType": "API Integration with Monitoring Tools",
+                "toolExamples": ["AWS CloudWatch [cite: 15]", "Google Cloud Operations [cite: 15]", "Datadog [cite: 15]", "Prometheus [cite: 16]"],
+                "exampleEndpoints": ["AWS CloudWatch GetMetricData (CPUUtilization) [cite: 15]"],
+                "notes": "Requires aggregation across various infrastructure components."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Cost Savings",
+          "description": "Total cost savings achieved",
+          "explanation": "Cumulative cost reductions achieved through optimization initiatives, automation, and efficiency improvements over the measurement period. Range: $10k-$5M+ annually, where savings >20% of IT budget is excellent, 10-20% is good, 5-10% is acceptable, <5% suggests limited optimization efforts.",
+          "value": 250,
+          "unit": "k",
+          "status": "good",
+          "metricRationale": "Demonstrates the financial benefits of technological improvements, process optimizations, and automation, directly contributing to profitability. [cite: 3, 12]",
+          "dataSourceProfile": {
+            "primaryCategory": "Financial",
+            "specificDataPoints": ["Budgeted vs. actual spend on technology", "Cost reductions from automation projects", "Savings from infrastructure optimization"],
+            "collectionGuidance": [
+              {
+                "methodType": "Financial Reporting Analysis & Project Tracking",
+                "toolExamples": ["Financial planning software", "Project management tools"],
+                "notes": "Requires clear baseline costs and tracking of savings initiatives."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Technical Debt Principal",
+          "description": "Estimated cost to refactor all identified hotspots",
+          "explanation": "Total estimated investment required to address all identified technical debt and code quality issues. Represents the 'principal' amount of technical debt. Range: $50k-$10M+, where <$500k is manageable, $500k-$2M needs planning, $2M-$5M requires strategic initiative, >$5M indicates critical architectural debt.",
+          "value": 480,
+          "unit": "k",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "tech-debt-economics",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Quantifies the financial liability of accumulated code quality issues, informing strategic decisions on refactoring investments to prevent future productivity loss and increased maintenance costs. [cite: 1, 12, 17]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Code quality analysis (code smells, bugs, vulnerabilities)", "Effort estimation for refactoring (e.g., sqale_index)"],
+            "collectionGuidance": [
+              {
+                "methodType": "API Integration with Code Analysis Tools",
+                "toolExamples": ["SonarQube [cite: 17]"],
+                "exampleEndpoints": ["GET http://<sonarqube_host>/api/measures/component?component=<project_key>&metricKeys=sqale_index [cite: 17]"],
+                "notes": "Relies on consistent use of code analysis tools and their configuration."
+              }
+            ]
+          },
+          "underpinningPractices": [
+            {
+              "practiceName": "Code Naming Conventions",
+              "impactStatement": "Clear, consistent naming is crucial for code maintainability and reducing accidental complexity that contributes to technical debt. [cite: 2]",
+              "relevanceSource": "[cite: 2]"
+            },
+            {
+              "practiceName": "Code Reuse & Libraries",
+              "impactStatement": "Strategic reuse of well-tested code and libraries helps minimize the introduction of new debt and ensures consistency. [cite: 2]",
+              "relevanceSource": "[cite: 2]"
+            }
+          ]
+        },
+        {
+          "name": "Productivity Loss from Hotspots",
+          "description": "Developer time lost working in problematic code areas",
+          "explanation": "Percentage of development time wasted due to working in complex, poorly structured code areas. Includes debugging time, slower feature development, and rework. Range: 5-60%, where <15% is good, 15-25% is typical, 25-40% needs attention, >40% indicates severe productivity impact requiring immediate refactoring.",
+          "value": 23,
+          "unit": "%",
+          "status": "critical",
+          "grafana": {
+            "dashboardUid": "tech-debt-economics",
+            "panelId": 2,
+            "height": 300,
+            "refresh": "1h"
+          },
+          "metricRationale": "Highlights the operational cost of technical debt in terms of lost developer efficiency, directly impacting project timelines and development capacity. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Code complexity metrics", "Change frequency in code modules", "Developer time tracking in specific code areas (e.g., via Git or Jira analysis)", "Bug density in hotspots"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Version Control & Issue Tracking Data",
+                "toolExamples": ["Git analysis tools", "Jira API", "CodeScene"],
+                "notes": "May require qualitative input from development teams alongside automated analysis."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Refactoring ROI",
+          "description": "Return on investment for hotspot refactoring initiatives",
+          "explanation": "Financial return ratio for technical debt reduction efforts, comparing refactoring costs to productivity gains and maintenance savings. Range: 0.5-10.0, where >3.0 is excellent ROI, 2.0-3.0 is good, 1.5-2.0 is acceptable, <1.5 suggests refactoring may not be cost-effective.",
+          "value": 3.2,
+          "unit": "ratio",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "tech-debt-economics",
+            "panelId": 3,
+            "height": 300,
+            "refresh": "1w"
+          },
+          "metricRationale": "Provides a financial justification for technical debt remediation efforts by comparing the cost of refactoring to the expected benefits in productivity and reduced operational issues. [cite: 3, 12]",
+          "dataSourceProfile": {
+            "primaryCategory": "Financial",
+            "specificDataPoints": ["Cost of refactoring (developer hours)", "Measured productivity improvements post-refactoring", "Reduction in bug fixing time", "Avoided incident costs"],
+            "collectionGuidance": [
+              {
+                "methodType": "Project Cost-Benefit Analysis",
+                "toolExamples": ["Financial modeling tools", "Post-implementation reviews"],
+                "notes": "Requires baseline data before refactoring and consistent tracking of benefits after."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Service Portfolio Stability Index",
+          "description": "Composite measure of service ecosystem stability",
+          "explanation": "Combines user growth volatility, permission change frequency, and service modification rates into a single stability indicator. Lower scores indicate more stable business processes, higher scores suggest periods of growth, change, or instability. Range: 0-10 score, where 0-3 is stable operations, 3-6 indicates controlled growth, 6-8 suggests rapid change, >8 may indicate instability requiring management attention.",
+          "value": 4.2,
+          "unit": "score",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "service-stability-composite",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "6h"
+          },
+          "metricRationale": "Offers a holistic view of business process stability as reflected in the technology service landscape, helping to identify periods of significant change or potential operational stress. [cite: 7, 5]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["User account creation/deactivation rates", "Access permission modification logs [cite: 6]", "Deployment frequency for services", "Code change volume per service"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Identity Management, Version Control, and Deployment Logs",
+                "toolExamples": ["IAM systems", "GitLab API [cite: 15]", "Jenkins API [cite: 15]", "Active Directory logs"],
+                "notes": "Requires defining a clear methodology for calculating the composite score based on these inputs."
+              }
+            ]
+          },
+          "underpinningPractices": [
+            {
+              "practiceName": "Access Management",
+              "impactStatement": "Well-defined access management processes ensure that permission changes are controlled and audited, contributing to overall system stability and security. [cite: 5, 6]",
+              "relevanceSource": "[cite: 5, 6]"
+            }
+          ]
         },
         {
           "name": "Customer Retention",
           "description": "Customer retention rate",
+          "explanation": "Percentage of customers who continue using services over a 12-month period. Critical indicator of customer satisfaction and system reliability. Range: 0-100%, where >90% is excellent, 80-90% is good, 70-80% is concerning, <70% indicates serious issues requiring immediate attention.",
           "value": 92,
           "unit": "%",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "Measures customer loyalty and satisfaction, which are heavily influenced by system performance, reliability, and user experience, directly impacting long-term revenue. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Active customer subscriptions", "Customer churn data", "User engagement metrics"],
+            "collectionGuidance": [
+              {
+                "methodType": "CRM and Subscription Management System Analysis",
+                "toolExamples": ["Salesforce", "Zuora", "Internal customer databases"],
+                "notes": "Requires consistent definition of an 'active customer' and 'churn event'."
+              }
+            ]
+          }
         },
         {
           "name": "Deployment Delay Cost",
           "description": "Cost impact of deployment delays",
+          "explanation": "Monthly cost in thousands of dollars due to delayed deployments, including lost revenue, overtime, and opportunity costs. Calculated from deployment pipeline delays and their business impact. Range: $0-500k+/month, where <$20k is good, $20-50k is acceptable, >$50k requires immediate process improvement.",
           "value": 45,
           "unit": "k",
           "status": "warning",
@@ -31,6 +224,416 @@
             "panelId": 3,
             "height": 300,
             "refresh": "10m"
+          },
+          "metricRationale": "Translates inefficiencies in the software delivery lifecycle into direct financial terms, highlighting areas for process improvement in CI/CD pipelines. [cite: 1, 3]",
+          "dataSourceProfile": {
+            "primaryCategory": "Financial",
+            "specificDataPoints": ["Deployment logs (timestamps)", "Projected revenue from delayed features", "Overtime costs for development/ops teams", "Market opportunity windows"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of CI/CD Logs & Financial Projections",
+                "toolExamples": ["Jenkins API [cite: 15]", "GitLab API [cite: 15]", "Financial planning documents"],
+                "notes": "Requires a model to estimate the financial impact of delays."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Technical Debt Impact on Revenue",
+          "description": "Revenue loss due to technical debt and hotspots",
+          "explanation": "Monthly revenue loss attributed to technical debt, including slower feature delivery, increased bugs, and reduced developer productivity. Calculated from hotspot analysis and development velocity impact. Range: $0-1M+/month, where <$50k is good, $50-150k is concerning, >$150k is critical and requires immediate refactoring investment.",
+          "value": 125,
+          "unit": "k/month",
+          "status": "critical",
+          "grafana": {
+            "dashboardUid": "tech-debt-business-impact",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1h"
+          },
+          "metricRationale": "Directly links code quality and architectural issues to potential revenue loss, providing a strong financial argument for investing in technical debt reduction. [cite: 1, 12]",
+          "dataSourceProfile": {
+            "primaryCategory": "Financial",
+            "specificDataPoints": ["Developer velocity metrics", "Feature delivery cycle times", "Bug rates correlated with revenue-generating features", "Analysis of code hotspots impacting critical functionalities"],
+            "collectionGuidance": [
+              {
+                "methodType": "Correlation of Engineering Metrics with Financial Outcomes",
+                "toolExamples": ["SonarQube [cite: 17]", "Jira API", "Git analysis tools", "Sales data"],
+                "notes": "Often requires a sophisticated model to attribute revenue impact accurately."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "exec-decision": {
+      "id": "exec-decision",
+      "name": "Executive Decision Support",
+      "description": "Evaluates how well technology supports executive decision-making with predictive code analytics and meeting efficiency analysis. [cite: 1]",
+      "explanation": "Assesses the quality and effectiveness of technology-enabled decision support systems, including data quality, reporting accuracy, predictive capabilities, and organizational meeting efficiency. Meeting patterns often reflect decision-making processes and organizational health. [cite: 1, 8, 9, 10]",
+      "category": "strategic",
+      "metrics": [
+        {
+          "name": "Data Quality",
+          "description": "Quality score of decision support data",
+          "explanation": "Composite score measuring completeness, accuracy, timeliness, and consistency of data used for executive reporting and decision-making. Range: 70-100%, where >95% is excellent, 85-95% is good, 75-85% is acceptable, <75% indicates data quality issues affecting decision reliability.",
+          "value": 90,
+          "unit": "%",
+          "status": "good",
+          "metricRationale": "Ensures that executive decisions are based on reliable and accurate information, which is fundamental for effective strategic planning and operational management. [cite: 1, 5]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Data validation error rates", "Data completeness checks", "Timeliness of data refreshes", "Consistency checks across data sources"],
+            "collectionGuidance": [
+              {
+                "methodType": "Data Quality Monitoring Tools & Audits",
+                "toolExamples": ["Data quality dashboards", "Automated data validation scripts", "BI tool reporting"],
+                "notes": "Requires clearly defined data quality rules and regular assessments."
+              }
+            ]
+          },
+          "underpinningPractices": [
+            {
+              "practiceName": "Ontology Definition & Use",
+              "impactStatement": "A common ontology ensures consistent understanding and interpretation of data across the organization, directly improving data quality and the reliability of decision support. [cite: 5]",
+              "relevanceSource": "[cite: 5]"
+            }
+          ]
+        },
+        {
+          "name": "Report Accuracy",
+          "description": "Accuracy of executive reports",
+          "explanation": "Percentage of executive reports that are later validated as accurate, measuring the reliability of automated reporting systems. Range: 85-100%, where >98% is excellent, 95-98% is good, 90-95% is acceptable, <90% indicates serious reporting system issues requiring immediate attention.",
+          "value": 95,
+          "unit": "%",
+          "status": "good",
+          "metricRationale": "Measures the trustworthiness of information provided to executives, ensuring that decisions are not based on flawed data. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Post-hoc validation of report data", "Error logs from reporting systems", "User feedback on report accuracy"],
+            "collectionGuidance": [
+              {
+                "methodType": "Manual Audits & Feedback Mechanisms",
+                "toolExamples": ["BI report validation processes", "Feedback surveys"],
+                "notes": "Requires a process for validating report accuracy after publication."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Decision Time",
+          "description": "Average time to make decisions",
+          "explanation": "Mean time from information request to executive decision, indicating the efficiency of decision support processes and data availability. Range: 1 hour to 2+ weeks, where <4 hours is excellent, 4-24 hours is good, 1-3 days is acceptable, >3 days suggests information access or quality issues.",
+          "value": 2,
+          "unit": "days",
+          "status": "warning",
+          "metricRationale": "Reflects the agility of the organization's decision-making processes, influenced by the speed of information access and clarity of supporting data. [cite: 7, 8, 9]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Timestamps of information requests", "Timestamps of decision records", "Meeting logs where decisions are made"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Decision Logs & Communication Records",
+                "toolExamples": ["Meeting minutes systems", "Email archives", "Workflow management tools with decision tracking [cite: 10]"],
+                "notes": "Requires a systematic way of recording when decisions are requested and made."
+              }
+            ]
+          },
+          "underpinningPractices": [
+            {
+              "practiceName": "Decision Logs",
+              "impactStatement": "Maintaining accessible decision logs (e.g., ADRs in Git, wikis) provides clarity, context, and speeds up future decision-making or reviews. [cite: 9, 10]",
+              "relevanceSource": "[cite: 9, 10]"
+            }
+          ]
+        },
+        {
+          "name": "Code Health Trend",
+          "description": "90-day trend in overall code health metrics",
+          "explanation": "Directional indicator of code quality evolution over time, combining multiple code metrics into a single trend score. Range: -50% to +50%, where positive trends indicate improving code health, negative trends suggest accumulating technical debt requiring strategic attention.",
+          "value": -5.2,
+          "unit": "%",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "executive-code-insights",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Provides executives with a high-level, forward-looking indicator of software asset quality, signaling potential future risks or improvements in development practices. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Trends in code complexity", "Bug introduction rates", "Test coverage trends", "Technical debt accumulation/reduction rates"],
+            "collectionGuidance": [
+              {
+                "methodType": "Time-Series Analysis of Code Quality Metrics",
+                "toolExamples": ["SonarQube API [cite: 17]", "Custom scripting over version control history"],
+                "notes": "Requires consistent collection of code quality metrics over time to establish trends."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Risk Prediction Accuracy",
+          "description": "Accuracy of code-based failure predictions",
+          "explanation": "Percentage of system failures correctly predicted by code quality metrics and hotspot analysis. Higher accuracy enables proactive risk management. Range: 50-95%, where >85% is excellent predictive capability, 75-85% is good, 65-75% is useful, <65% suggests prediction models need refinement.",
+          "value": 78,
+          "unit": "%",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "executive-code-insights",
+            "panelId": 2,
+            "height": 300,
+            "refresh": "6h"
+          },
+          "metricRationale": "Measures the effectiveness of using engineering data (code quality) to proactively identify and mitigate operational risks, enhancing system stability and reliability. [cite: 1, 12]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Code hotspot analysis results", "Historical incident data", "Code complexity metrics", "Change failure rates"],
+            "collectionGuidance": [
+              {
+                "methodType": "Correlation of Code Metrics with Incident Data",
+                "toolExamples": ["CodeScene", "Custom machine learning models", "Incident management system data"],
+                "notes": "Requires robust incident data and a model to link code characteristics to failure likelihood."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Resource Allocation Insights",
+          "description": "Effectiveness of development resource allocation based on code metrics",
+          "explanation": "Score measuring how well development resources are allocated to high-impact areas identified through code analysis. Range: 60-100%, where >90% indicates optimal resource allocation, 80-90% is good, 70-80% needs improvement, <70% suggests misaligned priorities or poor metric utilization.",
+          "value": 82,
+          "unit": "%",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "executive-code-insights",
+            "panelId": 3,
+            "height": 300,
+            "refresh": "1w"
+          },
+          "metricRationale": "Assesses whether development effort is strategically focused on areas that code analysis identifies as critical (e.g., high-risk hotspots, tech debt reduction), optimizing the use of resources. [cite: 1, 12]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Developer effort allocation (e.g., from Jira time tracking)", "Code hotspot analysis results", "Technical debt backlog prioritization", "Git contributor metrics [cite: 3]"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Effort Tracking & Code Analysis Data",
+                "toolExamples": ["Jira API", "SonarQube API [cite: 17]", "Git analysis tools"],
+                "notes": "Requires linking development tasks to specific code areas or strategic initiatives."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Meeting Time Utilization",
+          "description": "Percentage of work time spent in meetings",
+          "explanation": "Total meeting hours as percentage of available work hours across the organization. High percentages may indicate meeting overload affecting productivity. Range: 15-60%, where 20-35% is optimal for collaborative work, 35-45% is acceptable, 45-55% suggests meeting fatigue, >55% indicates severe meeting overload requiring intervention.",
+          "value": 42,
+          "unit": "%",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "meeting-analytics",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Highlights potential productivity drains due to excessive meeting loads, prompting reviews of meeting culture and efficiency. [cite: 3, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Calendar data (meeting durations, attendee lists)", "Standard work hours"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Calendar Data",
+                "toolExamples": ["Google Calendar API", "Microsoft Outlook Calendar data"],
+                "notes": "Requires access to calendar data and clear definitions of 'work time'."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Internal vs External Meeting Ratio",
+          "description": "Ratio of internal-only meetings to meetings with external participants",
+          "explanation": "Compares internal collaboration time with external engagement. Higher ratios indicate more internal focus, lower ratios suggest external partnership or sales activities. Range: 0.5-10.0 ratio, where 2-4 is typical for most organizations, >6 may indicate insularity, <1 suggests heavy external engagement or limited internal collaboration.",
+          "value": 3.2,
+          "unit": "ratio",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "meeting-analytics",
+            "panelId": 2,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Provides insights into the balance of internal collaboration versus external engagement, which can be indicative of organizational focus and priorities. [cite: 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Calendar data (attendee domains/ affiliations)"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Calendar Data",
+                "toolExamples": ["Google Calendar API", "Microsoft Outlook Calendar data"],
+                "notes": "Requires ability to distinguish internal vs. external attendees."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Meeting Efficiency Score",
+          "description": "Composite score based on meeting size, duration, and frequency patterns",
+          "explanation": "Calculated from optimal meeting size distributions, appropriate durations for meeting types, and frequency patterns. Higher scores indicate more efficient meeting practices. Range: 40-100%, where >80% is excellent meeting culture, 65-80% is good, 50-65% needs improvement, <50% indicates significant meeting inefficiency requiring cultural change.",
+          "value": 67,
+          "unit": "%",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "meeting-analytics",
+            "panelId": 3,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Offers a quantitative assessment of meeting culture effectiveness, identifying potential inefficiencies in how meetings are conducted. [cite: 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Meeting size (attendee count)", "Meeting duration", "Meeting frequency per individual/team"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Calendar Data",
+                "toolExamples": ["Google Calendar API", "Microsoft Outlook Calendar data"],
+                "notes": "Requires defining criteria for optimal meeting characteristics to calculate the score."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Large Meeting Frequency",
+          "description": "Percentage of meetings with 8+ participants",
+          "explanation": "Frequency of large meetings which are often less efficient and more expensive. Research suggests meetings >7 people reduce individual participation and decision-making effectiveness. Range: 5-40%, where <15% is optimal, 15-25% is acceptable, 25-35% suggests too many large meetings, >35% indicates significant efficiency issues.",
+          "value": 28,
+          "unit": "%",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "meeting-analytics",
+            "panelId": 4,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Identifies a common source of meeting inefficiency, as larger meetings often struggle with engagement and decision-making effectiveness. [cite: 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Calendar data (attendee counts per meeting)"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Calendar Data",
+                "toolExamples": ["Google Calendar API", "Microsoft Outlook Calendar data"],
+                "notes": "Straightforward count based on meeting attendee lists."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Meeting Size Distribution Score",
+          "description": "Quality score based on optimal meeting size distribution",
+          "explanation": "Measures how well meeting sizes align with best practices: 2-3 people for decisions, 4-6 for problem-solving, 7+ only for information sharing. Range: 50-100%, where >85% indicates optimal size distribution, 70-85% is good, 60-70% needs attention, <60% suggests poor meeting planning and potential productivity loss.",
+          "value": 74,
+          "unit": "%",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "meeting-analytics",
+            "panelId": 5,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Assesses whether meeting sizes are appropriate for their likely purpose, promoting more effective use of collaborative time. [cite: 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Calendar data (attendee counts per meeting)", "Meeting purpose (if available)"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Calendar Data",
+                "toolExamples": ["Google Calendar API", "Microsoft Outlook Calendar data"],
+                "notes": "Relies on established best practices for meeting sizes to calculate the score."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "policy-control": {
+      "id": "policy-control",
+      "name": "Policy & Control Effectiveness",
+      "description": "Assesses the effectiveness of policies and controls ensuring governance and compliance. [cite: 1]",
+      "explanation": "Evaluates how well organizational policies and controls are implemented and followed, ensuring governance, compliance, and risk management objectives are met effectively. [cite: 1, 4, 7]",
+      "category": "strategic",
+      "metrics": [
+        {
+          "name": "Policy Compliance",
+          "description": "Percentage of policies followed",
+          "explanation": "Overall compliance rate across all organizational policies, measured through audits, automated monitoring, and self-assessments. Range: 80-100%, where >95% is excellent, 90-95% is good, 85-90% is acceptable, <85% indicates policy enforcement or communication issues.",
+          "value": 96,
+          "unit": "%",
+          "status": "good",
+          "metricRationale": "Indicates the organization's adherence to its own established rules and external regulations, crucial for mitigating risks and maintaining operational integrity. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Audit results", "Automated compliance scan reports (e.g., security patching [cite: 1])", "Policy attestation records"],
+            "collectionGuidance": [
+              {
+                "methodType": "Audit Processes & Automated Scans",
+                "toolExamples": ["GRC platforms", "Security compliance tools (e.g., AWS Security Hub compliance scores [cite: 15])", "Internal audit reports"],
+                "notes": "Requires clearly defined policies and methods for measuring adherence."
+              }
+            ]
+          },
+          "underpinningPractices": [
+             {
+              "practiceName": "Password Policy",
+              "impactStatement": "A strong, enforced password policy is fundamental to security compliance and mitigating financial and operational risks associated with unauthorized access. [cite: 3, 4]",
+              "relevanceSource": "[cite: 3, 4]"
+            },
+            {
+              "practiceName": "Access Management",
+              "impactStatement": "Ensuring appropriate access controls and regular reviews are key to policy compliance, particularly for data security and system integrity. [cite: 5, 6]",
+              "relevanceSource": "[cite: 5, 6]"
+            }
+          ]
+        },
+        {
+          "name": "Control Effectiveness",
+          "description": "Effectiveness of implemented controls",
+          "explanation": "Assessment of how well security, operational, and governance controls achieve their intended objectives, based on testing and monitoring results. Range: 75-100%, where >90% is excellent, 85-90% is good, 80-85% is acceptable, <80% suggests control design or implementation deficiencies.",
+          "value": 88,
+          "unit": "%",
+          "status": "good",
+          "metricRationale": "Measures the practical effectiveness of implemented safeguards and procedures in achieving their risk mitigation and governance objectives. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Control testing results", "Penetration testing reports", "Security incident rates where controls should have applied", "Monitoring alert data"],
+            "collectionGuidance": [
+              {
+                "methodType": "Control Testing & Monitoring Systems",
+                "toolExamples": ["Security testing tools (e.g., OWASP ZAP[cite: 15], Qualys [cite: 15])", "SIEM systems", "Internal control self-assessments"],
+                "notes": "Requires a defined control framework and regular testing schedules."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Audit Score",
+          "description": "Overall audit performance score",
+          "explanation": "Composite score from internal and external audits, reflecting overall governance and compliance posture. Range: 70-100%, where >95% is excellent, 85-95% is good, 75-85% is acceptable, <75% indicates significant compliance gaps requiring immediate remediation efforts.",
+          "value": 92,
+          "unit": "%",
+          "status": "good",
+          "metricRationale": "Provides an external or independent validation of the organization's compliance and governance effectiveness. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Internal audit reports", "External audit findings (e.g., SOC 2, ISO 27001)", "Regulatory examination results"],
+            "collectionGuidance": [
+              {
+                "methodType": "Formal Audit Processes",
+                "toolExamples": ["Audit management software", "Third-party audit reports"],
+                "notes": "Represents outcomes of formal audit engagements."
+              }
+            ]
           }
         }
       ]
@@ -38,46 +641,243 @@
     "dev-health": {
       "id": "dev-health",
       "name": "Development & Deployment Health",
-      "description": "Measures the efficiency and reliability of development processes.",
+      "description": "Measures the efficiency and reliability of development processes using DORA and code quality metrics. [cite: 1]",
+      "explanation": "Combines industry-standard DORA metrics with advanced code analysis to provide comprehensive visibility into development effectiveness. Higher deployment frequency with low failure rates indicates mature DevOps practices, while code quality metrics reveal technical debt and architectural risks. [cite: 1, 15, 17]",
       "category": "critical",
       "metrics": [
         {
           "name": "Deployment Frequency",
-          "description": "Number of deployments per day",
+          "description": "Number of deployments per day (DORA)",
+          "explanation": "Key DORA metric measuring deployment velocity. Higher frequency indicates better automation, testing, and team confidence. Range: <1/week is low, 1/day is good, >10/day is excellent. Elite teams deploy multiple times per day with high reliability.",
           "value": 12,
           "unit": "/day",
           "status": "good",
           "grafana": {
-            "dashboardUid": "deployment-metrics",
+            "dashboardUid": "dora-metrics",
             "panelId": 1,
             "height": 300,
             "refresh": "1m"
+          },
+          "metricRationale": "Indicates the organization's agility and ability to deliver value to users quickly and frequently, a core tenant of high-performing DevOps teams. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Deployment logs from CI/CD pipelines", "Release records"],
+            "collectionGuidance": [
+              {
+                "methodType": "API Integration with CI/CD Tools",
+                "toolExamples": ["GitHub Actions API [cite: 15]", "GitLab API [cite: 15]", "Jenkins API [cite: 15]"],
+                "exampleEndpoints": ["GET https://api.github.com/repos/<owner>/<repo>/actions/runs [cite: 15]"],
+                "notes": "Requires accurate logging of all production deployments."
+              }
+            ]
           }
         },
         {
-          "name": "Lead Time",
-          "description": "Time from commit to production",
+          "name": "Lead Time for Changes",
+          "description": "Time from commit to production (DORA)",
+          "explanation": "DORA metric measuring development pipeline efficiency from code commit to production deployment. Shorter lead times enable faster feedback and reduced risk. Range: <1 hour is elite, <1 day is high, 1-7 days is medium, >1 week indicates process bottlenecks requiring attention.",
           "value": 2.5,
           "unit": "days",
           "status": "warning",
           "grafana": {
-            "dashboardUid": "lead-time-metrics",
+            "dashboardUid": "dora-metrics",
             "panelId": 2,
             "height": 300,
             "refresh": "5m"
+          },
+          "metricRationale": "Measures the speed and efficiency of the entire software delivery process, from code creation to deployment, highlighting potential bottlenecks. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Commit timestamps from version control", "Deployment timestamps from CI/CD pipelines"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Version Control & CI/CD Data",
+                "toolExamples": ["GitHub API [cite: 15, 17]", "GitLab API [cite: 15, 17]", "Jenkins API [cite: 15]"],
+                "notes": "Requires accurate timestamps for both commits and corresponding production deployments."
+              }
+            ]
           }
         },
         {
           "name": "Change Failure Rate",
-          "description": "Percentage of deployments causing failures",
+          "description": "Percentage of deployments causing failures (DORA)",
+          "explanation": "DORA metric measuring deployment quality and testing effectiveness. Lower rates indicate robust CI/CD processes and comprehensive testing. Range: 0-100%, where <5% is elite, 5-15% is high performing, 15-30% is medium, >30% indicates serious quality issues requiring process overhaul.",
           "value": 5,
           "unit": "%",
           "status": "good",
           "grafana": {
-            "dashboardUid": "failure-metrics",
+            "dashboardUid": "dora-metrics",
             "panelId": 3,
             "height": 300,
             "refresh": "10m"
+          },
+          "metricRationale": "Indicates the reliability and quality of the deployment process; a low rate signifies mature testing and release practices, minimizing user impact. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Deployment logs", "Incident records related to deployments", "Rollback event logs"],
+            "collectionGuidance": [
+              {
+                "methodType": "Correlation of Deployment Logs with Incident Data",
+                "toolExamples": ["CI/CD tool APIs [cite: 15]", "Incident management systems", "Monitoring tools (e.g., Prometheus error rates post-deployment [cite: 16])"],
+                "notes": "Requires clear criteria for what constitutes a 'failure' caused by a deployment."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Mean Time to Recovery",
+          "description": "Average time to recover from failures (DORA)",
+          "explanation": "DORA metric measuring incident response effectiveness and system resilience. Faster recovery reduces business impact and customer frustration. Range: <1 hour is elite, 1-24 hours is high, 1-7 days is medium, >1 week indicates inadequate incident response processes.",
+          "value": 45,
+          "unit": "min",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "dora-metrics",
+            "panelId": 4,
+            "height": 300,
+            "refresh": "5m"
+          },
+          "metricRationale": "Measures the organization's ability to quickly restore service after an incident, directly impacting user experience and business continuity. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Incident start times", "Incident resolution times", "System log timestamps (error detection and recovery) [cite: 1, 16]"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Incident Management & Monitoring Data",
+                "toolExamples": ["PagerDuty/Opsgenie data", "ServiceNow/Jira Service Desk", "Monitoring tools (e.g., ELK Stack[cite: 15], Prometheus [cite: 16])"],
+                "notes": "Requires accurate tracking of incident lifecycles."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Code Hotspots",
+          "description": "Number of high-risk code files (high complexity + change frequency)",
+          "explanation": "Identifies files with both high cyclomatic complexity and frequent changes, indicating problematic areas requiring refactoring. Based on Tornhill's code crime scene analysis. Range: 0-100+ files, where <10 is excellent, 10-25 is manageable, 25-50 needs attention, >50 indicates serious architectural debt.",
+          "value": 23,
+          "unit": "files",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "code-crime-scene",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1h"
+          },
+          "metricRationale": "Pinpoints specific areas in the codebase that are likely sources of bugs and maintenance overhead, allowing for targeted refactoring efforts. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Code complexity metrics (e.g., cyclomatic complexity)", "Version control history (change frequency per file)"],
+            "collectionGuidance": [
+              {
+                "methodType": "Code Analysis & Version Control Mining",
+                "toolExamples": ["CodeScene", "SonarQube [cite: 17]", "Custom Git analysis scripts"],
+                "notes": "Relies on tools that can correlate complexity with change history."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Change Coupling Index",
+          "description": "Average coupling score of files that change together",
+          "explanation": "Measures logical coupling between files that frequently change together, indicating potential architectural issues or missing abstractions. Range: 0-1.0, where <0.3 is good, 0.3-0.6 indicates moderate coupling, >0.6 suggests tight coupling requiring architectural review.",
+          "value": 0.68,
+          "unit": "score",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "code-crime-scene",
+            "panelId": 2,
+            "height": 300,
+            "refresh": "1h"
+          },
+          "metricRationale": "Identifies hidden dependencies between code modules, which can increase the risk of unintended consequences during changes and indicate architectural weaknesses. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Version control history (co-changing files in commits)"],
+            "collectionGuidance": [
+              {
+                "methodType": "Version Control Mining",
+                "toolExamples": ["CodeScene", "Custom Git analysis scripts"],
+                "notes": "Focuses on identifying temporal coupling from commit patterns."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Knowledge Distribution",
+          "description": "Percentage of code known by only one developer (bus factor)",
+          "explanation": "Measures knowledge concentration risk by identifying code areas known by single developers. Critical for business continuity and team resilience. Range: 0-100%, where <20% is excellent, 20-40% is acceptable, 40-60% is risky, >60% represents critical business continuity risk.",
+          "value": 34,
+          "unit": "%",
+          "status": "critical",
+          "grafana": {
+            "dashboardUid": "code-crime-scene",
+            "panelId": 3,
+            "height": 300,
+            "refresh": "6h"
+          },
+          "metricRationale": "Highlights business continuity risks associated with concentrated knowledge in specific code areas, informing efforts for knowledge sharing and cross-training. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Version control history (authorship patterns per file/module)", "Git contributor metrics [cite: 3]"],
+            "collectionGuidance": [
+              {
+                "methodType": "Version Control Mining & Authorship Analysis",
+                "toolExamples": ["CodeScene", "Git analysis tools (e.g., git-fame)"],
+                "notes": "Aims to identify code sections primarily maintained by a single individual."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Temporal Coupling Risk",
+          "description": "Files with hidden dependencies (change together frequently)",
+          "explanation": "Identifies files that change together despite no apparent architectural relationship, revealing hidden dependencies and potential design flaws. Range: 0-50+ pairs, where <5 is good, 5-15 is manageable, >15 indicates architectural complexity requiring analysis.",
+          "value": 18,
+          "unit": "file pairs",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "code-crime-scene",
+            "panelId": 4,
+            "height": 300,
+            "refresh": "1h"
+          },
+          "metricRationale": "Uncovers non-obvious dependencies in the codebase that can lead to unexpected issues when changes are made, suggesting areas for architectural review. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Version control history (patterns of files changed in the same commits)"],
+            "collectionGuidance": [
+              {
+                "methodType": "Version Control Mining",
+                "toolExamples": ["CodeScene", "Custom Git analysis scripts"],
+                "notes": "Focuses on identifying files that are frequently modified together over time."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Hotspot Defect Density",
+          "description": "Defects per KLOC in identified hotspots",
+          "explanation": "Measures bug concentration in code hotspots, validating the correlation between code complexity and quality issues. Range: 0-20+ defects/KLOC, where <2 is excellent, 2-5 is acceptable, 5-10 needs attention, >10 indicates critical quality issues requiring immediate refactoring.",
+          "value": 8.2,
+          "unit": "defects/KLOC",
+          "status": "critical",
+          "grafana": {
+            "dashboardUid": "code-quality-metrics",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1h"
+          },
+          "metricRationale": "Provides evidence of quality issues within the most problematic (hotspot) areas of the code, justifying targeted quality improvement efforts. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Bug tracking data linked to code modules", "Lines of code (KLOC) for hotspot files", "Code hotspot identification data"],
+            "collectionGuidance": [
+              {
+                "methodType": "Correlation of Bug Data with Code Analysis",
+                "toolExamples": ["Jira API", "CodeScene", "SonarQube [cite: 17]"],
+                "notes": "Requires linking bugs to specific code files identified as hotspots."
+              }
+            ]
           }
         }
       ]
@@ -85,209 +885,848 @@
     "security": {
       "id": "security",
       "name": "Security & Access Management",
-      "description": "Evaluates the effectiveness of security measures and access controls.",
+      "description": "Evaluates the effectiveness of security measures and access controls with code-level insights. [cite: 1]",
+      "explanation": "Combines traditional security metrics with code-based security analysis to provide comprehensive security posture assessment. Code-level insights help identify security patterns and risks that traditional scanning might miss. [cite: 1, 4, 15]",
       "category": "critical",
       "metrics": [
         {
           "name": "Security Score",
           "description": "Overall security posture score",
+          "explanation": "Composite security rating based on vulnerability management, access controls, and security practices. Range: 0-100%, where >90% is excellent, 80-90% is good, 70-80% needs improvement, <70% indicates significant security gaps requiring immediate attention.",
           "value": 88,
           "unit": "%",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "Provides a high-level summary of the organization's security posture, enabling quick assessment and trend monitoring. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Vulnerability scan results", "Compliance scores [cite: 1, 15]", "Security patching status [cite: 1, 15]", "Access control audit results"],
+            "collectionGuidance": [
+              {
+                "methodType": "Aggregation from Security Tools & Audits",
+                "toolExamples": ["AWS Security Hub [cite: 15]", "Qualys [cite: 15]", "OWASP ZAP [cite: 15]", "GRC platforms"],
+                "notes": "Requires defining a weighting methodology for the composite score."
+              }
+            ]
+          }
         },
         {
           "name": "Vulnerability Count",
           "description": "Number of open vulnerabilities",
+          "explanation": "Total count of unresolved security vulnerabilities across all severity levels. Should be weighted by severity and age. Range: 0-100+, where 0 is ideal, <5 is acceptable, 5-20 needs attention, >20 indicates serious security debt requiring prioritized remediation.",
           "value": 3,
           "unit": "",
-          "status": "warning"
+          "status": "warning",
+          "metricRationale": "Directly measures the known security weaknesses in systems and applications, indicating the current level of risk exposure. [cite: 1, 4]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Vulnerability scan reports (e.g., from Qualys, OWASP ZAP)", "Security Hub findings"],
+            "collectionGuidance": [
+              {
+                "methodType": "Security Scanning Tools",
+                "toolExamples": ["Qualys API (Get Vulnerability Report) [cite: 15]", "OWASP ZAP API (Scan results) [cite: 15]", "AWS Security Hub API (Retrieve Security Findings) [cite: 15]"],
+                "notes": "Important to categorize vulnerabilities by severity."
+              }
+            ]
+          }
         },
         {
           "name": "Access Violations",
           "description": "Number of unauthorized access attempts",
+          "explanation": "Count of detected unauthorized access attempts over the monitoring period. Indicates both external threats and internal control effectiveness. Range: 0-1000+/month, where <10 is good, 10-50 is normal, 50-100 needs monitoring, >100 may indicate targeted attacks or control failures.",
           "value": 2,
           "unit": "",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "Monitors potential security breaches or weaknesses in access control mechanisms, serving as an indicator of threat activity and control effectiveness. [cite: 1, 6]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Firewall logs", "Intrusion detection system (IDS/IPS) logs", "Application access logs", "Authentication failure logs"],
+            "collectionGuidance": [
+              {
+                "methodType": "Log Analysis from Security Systems",
+                "toolExamples": ["SIEM systems", "AWS CloudTrail", "Application-specific audit logs"],
+                "notes": "Requires effective log aggregation and correlation to identify true violations."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Security Hotspots",
+          "description": "Code files with frequent security-related changes",
+          "explanation": "Files requiring frequent security fixes, indicating either high-risk code areas or reactive security practices. Range: 0-50+ files, where <5 is good, 5-15 is manageable, >15 suggests architectural security issues or inadequate security-by-design practices.",
+          "value": 7,
+          "unit": "files",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "security-code-analysis",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1h"
+          },
+          "metricRationale": "Identifies areas in the codebase that are chronic sources of security issues, suggesting a need for deeper architectural review or developer training. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Version control history (commits tagged as security fixes)", "Code complexity of frequently patched files"],
+            "collectionGuidance": [
+              {
+                "methodType": "Version Control Mining & Code Analysis",
+                "toolExamples": ["Git analysis scripts", "CodeScene"],
+                "notes": "Requires a convention for identifying security-related commits."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Code Access Pattern Risk",
+          "description": "Risk score based on who accesses sensitive code areas",
+          "explanation": "Analyzes developer access patterns to sensitive code areas, identifying potential insider threats or inadequate access controls. Range: 1-10 risk score, where 1-3 is low risk, 4-6 is moderate, 7-8 is high, 9-10 requires immediate access review and additional controls.",
+          "value": 6.5,
+          "unit": "score",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "security-code-analysis",
+            "panelId": 2,
+            "height": 300,
+            "refresh": "4h"
+          },
+          "metricRationale": "Assesses potential risks related to insider access to critical code, complementing traditional vulnerability scanning by focusing on human factors. [cite: 1, 5, 6]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Version control access logs", "Definition of sensitive code areas", "Developer roles and permissions"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of VCS Access Logs & Permissions",
+                "toolExamples": ["Git host audit logs (e.g., GitHub, GitLab)", "CodeScene (social analysis features)"],
+                "notes": "Requires defining 'sensitive code areas' and a model to score risk based on access patterns."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Rushed Security Fixes",
+          "description": "Security fixes with negative commit sentiment (rushed/stressed)",
+          "explanation": "Percentage of security-related commits showing negative sentiment indicators, suggesting rushed fixes that may introduce new vulnerabilities. Range: 0-100%, where <5% is excellent, 5-15% is acceptable, 15-30% indicates process issues, >30% suggests inadequate security development practices.",
+          "value": 12,
+          "unit": "%",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "security-code-analysis",
+            "panelId": 3,
+            "height": 300,
+            "refresh": "6h"
+          },
+          "metricRationale": "Identifies potential quality issues in security patches that were implemented under pressure, which might inadvertently create new problems. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Commit messages for security fixes", "Commit timestamps relative to vulnerability disclosure or incident"],
+            "collectionGuidance": [
+              {
+                "methodType": "Sentiment Analysis of Commit Messages & Contextual Analysis",
+                "toolExamples": ["NLP tools for sentiment analysis", "Custom scripts analyzing commit metadata"],
+                "notes": "Sentiment analysis can be subjective; requires careful calibration."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "service-governance": {
+      "id": "service-governance",
+      "name": "Service Governance & Reproducibility",
+      "description": "Tracks service inventory, reproducibility through version control, and usage patterns that indicate business stability or growth. [cite: 1]",
+      "explanation": "Monitors the organization's service landscape and governance practices. Services backed by Git repositories are more likely to be reproducible and maintainable. User growth patterns and permission changes provide early indicators of business process changes, product adoption, or organizational instability. [cite: 1, 5, 6, 7]",
+      "category": "critical",
+      "metrics": [
+        {
+          "name": "Total Services",
+          "description": "Number of services in the organization",
+          "explanation": "Total count of all services, applications, and systems managed by the organization. Growth indicates expansion, while reduction may signal consolidation or decommissioning. Range: 10-1000+ services, where 10-50 is typical for small orgs, 50-200 for medium, 200-500 for large, >500 for enterprise. Monitor growth rate for capacity planning.",
+          "value": 127,
+          "unit": "services",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "service-inventory",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Provides a basic inventory count, essential for understanding the scale and complexity of the technology landscape being managed. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Service catalog data", "CMDB records", "Microservice registration lists"],
+            "collectionGuidance": [
+              {
+                "methodType": "Service Discovery & Inventory Systems",
+                "toolExamples": ["CMDB tools", "Service mesh dashboards", "API gateways"],
+                "notes": "Requires a consistent definition of what constitutes a 'service'."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Git-Backed Services",
+          "description": "Services with Git repository backing",
+          "explanation": "Number of services that have associated Git repositories, indicating reproducibility and proper version control practices. Higher percentages suggest better DevOps maturity and disaster recovery capability. Range: 0-100% of total services, where >90% is excellent, 70-90% is good, 50-70% needs improvement, <50% indicates poor reproducibility practices.",
+          "value": 98,
+          "unit": "services",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "service-inventory",
+            "panelId": 2,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Measures adherence to fundamental DevOps practices (version control), which is crucial for reproducibility, auditability, and collaborative development. [cite: 1, 2]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["List of services", "Mapping of services to Git repositories"],
+            "collectionGuidance": [
+              {
+                "methodType": "Correlation of Service Inventory with VCS Data",
+                "toolExamples": ["Custom scripts querying service catalogs and Git hosting platforms (GitHub API[cite: 15], GitLab API [cite: 15])"],
+                "notes": "Requires maintaining a mapping between services and their code repositories."
+              }
+            ]
+          },
+          "underpinningPractices": [
+            {
+              "practiceName": "Code Reuse & Libraries",
+              "impactStatement": "Services built using shared, version-controlled libraries and patterns are inherently more reproducible and consistently managed. [cite: 2]",
+              "relevanceSource": "[cite: 2]"
+            }
+          ]
+        },
+        {
+          "name": "Service Reproducibility Rate",
+          "description": "Percentage of services backed by Git repositories",
+          "explanation": "Calculated as (Git-backed services / Total services) × 100. Measures organizational maturity in version control and reproducibility practices. Critical for disaster recovery and scaling. Range: 0-100%, where >90% is excellent DevOps maturity, 70-90% is good, 50-70% needs improvement, <50% represents significant operational risk.",
+          "value": 77.2,
+          "unit": "%",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "service-inventory",
+            "panelId": 3,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Quantifies the extent to which the organization's services can be reliably rebuilt and redeployed, a key factor in disaster recovery and operational stability. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Count of Git-backed services", "Total count of services"],
+            "collectionGuidance": [
+              {
+                "methodType": "Derived from 'Total Services' and 'Git-Backed Services' metrics",
+                "toolExamples": [],
+                "notes": "A calculated metric based on other collected data."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Average Repository Committers",
+          "description": "Average number of active committers per Git repository",
+          "explanation": "Mean number of developers actively contributing to each repository over the last 90 days. Higher numbers indicate good knowledge distribution and collaboration. Range: 1-20+ people, where >5 is excellent collaboration, 3-5 is good, 2-3 is acceptable, 1-2 indicates knowledge concentration risk requiring attention.",
+          "value": 4.3,
+          "unit": "people",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "git-collaboration-metrics",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Indicates the level of collaborative effort and knowledge sharing within development teams, which can impact resilience and the 'bus factor'. [cite: 1, 3, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Version control commit logs (author data per repository over a defined period)"],
+            "collectionGuidance": [
+              {
+                "methodType": "Version Control Mining",
+                "toolExamples": ["GitHub API (commits) [cite: 15]", "GitLab API (commits) [cite: 15]", "Custom Git analysis scripts"],
+                "notes": "Requires analyzing commit history to identify unique active committers."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Repository Permission Groups",
+          "description": "Average number of permission groups per repository",
+          "explanation": "Mean number of distinct permission groups configured per repository, indicating access control granularity and governance maturity. Range: 1-10+ groups, where 3-5 is optimal governance, 2-3 is acceptable, 1-2 may lack granularity, >5 may indicate over-complexity or compliance requirements.",
+          "value": 3.7,
+          "unit": "groups",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "git-collaboration-metrics",
+            "panelId": 2,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Reflects the maturity of access control practices for code repositories, balancing security with appropriate access for collaboration. [cite: 1, 5, 6]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Repository permission settings from version control hosting platforms"],
+            "collectionGuidance": [
+              {
+                "methodType": "API Integration with Git Hosting Platforms",
+                "toolExamples": ["GitHub API (repository collaborators/teams)", "GitLab API (project members/groups)"],
+                "notes": "Requires access to repository administration settings."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Total Service Users",
+          "description": "Total number of users across all services",
+          "explanation": "Aggregate count of unique users accessing all organizational services. Indicates overall system utilization and business reach. Range varies by organization size and type, where steady growth indicates healthy adoption, rapid growth may indicate viral adoption or new market penetration, decline suggests churn or market issues.",
+          "value": 12847,
+          "unit": "users",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "service-usage-metrics",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1h"
+          },
+          "metricRationale": "Measures the overall reach and adoption of the organization's services, a key indicator of business scale and market penetration. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["User authentication logs", "Active user counts from various applications", "Subscription databases"],
+            "collectionGuidance": [
+              {
+                "methodType": "Aggregation from IAM Systems & Application Databases",
+                "toolExamples": ["Identity and Access Management (IAM) systems", "Application-specific user databases", "CRM data"],
+                "notes": "Requires de-duplication if users can access multiple services."
+              }
+            ]
+          }
+        },
+        {
+          "name": "User Growth Rate",
+          "description": "Monthly percentage change in service users",
+          "explanation": "Month-over-month percentage change in total service users. Positive growth indicates adoption, negative indicates churn. Large changes (>±20%) may signal business process changes, product launches, or instability. Range: -50% to +100%+, where 5-15% is healthy growth, >20% may indicate viral adoption or major changes, <-10% suggests significant issues.",
+          "value": 8.3,
+          "unit": "%",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "service-usage-metrics",
+            "panelId": 2,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Tracks the momentum of service adoption or churn, providing insights into market dynamics, product success, or potential customer satisfaction issues. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Time-series data of total service users"],
+            "collectionGuidance": [
+              {
+                "methodType": "Calculated from 'Total Service Users' time-series data",
+                "toolExamples": [],
+                "notes": "Requires historical data for 'Total Service Users'."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Permission Change Velocity",
+          "description": "Rate of permission changes across all services",
+          "explanation": "Number of permission modifications per month across all services and repositories. High velocity may indicate organizational restructuring, new product launches, or security incidents. Range: 5-500+ changes/month, where <50 is stable, 50-150 is typical growth, 150-300 indicates major changes, >300 may suggest instability or rapid scaling.",
+          "value": 73,
+          "unit": "changes/month",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "service-usage-metrics",
+            "panelId": 3,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Indicates the level of flux in access controls, which can be a symptom of organizational change, growth, or potential security adjustments. [cite: 1, 5, 6]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Audit logs from IAM systems", "Access control change logs for repositories and applications"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Access Control Logs",
+                "toolExamples": ["IAM audit logs", "Git hosting platform audit logs", "Application-specific permission change logs"],
+                "notes": "Requires comprehensive logging of all permission modifications."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Service Usage Volatility",
+          "description": "Standard deviation of user counts across services",
+          "explanation": "Measures consistency of user distribution across services. High volatility indicates uneven adoption or specialized services. Low volatility suggests balanced service portfolio. Range: 10-1000+ users std dev, where low values indicate balanced usage, high values suggest concentrated usage patterns or specialized services requiring different management approaches.",
+          "value": 234.7,
+          "unit": "users",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "service-usage-metrics",
+            "panelId": 4,
+            "height": 300,
+            "refresh": "4h"
+          },
+          "metricRationale": "Reveals patterns in service adoption across the portfolio, highlighting potentially underutilized or overly critical services. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["User counts per individual service"],
+            "collectionGuidance": [
+              {
+                "methodType": "Statistical Analysis of Per-Service User Data",
+                "toolExamples": ["Application monitoring tools", "Databases tracking user activity per service"],
+                "notes": "Requires collecting user numbers for each distinct service."
+              }
+            ]
+          }
         }
       ]
     },
     "continuity": {
       "id": "continuity",
       "name": "Business Continuity",
-      "description": "Assesses the resilience and recovery capabilities of systems.",
+      "description": "Assesses the resilience and recovery capabilities of systems with knowledge risk analysis. [cite: 1, 7]",
+      "explanation": "Evaluates system resilience through traditional uptime metrics combined with human knowledge risks. Knowledge concentration analysis helps identify business continuity risks that aren't visible through technical metrics alone. [cite: 1, 7, 8]",
       "category": "critical",
       "metrics": [
         {
           "name": "Uptime",
           "description": "System availability percentage",
+          "explanation": "Percentage of time systems are operational and accessible to users. Critical for business operations and customer satisfaction. Range: 90-100%, where >99.9% is excellent, 99.5-99.9% is good, 99-99.5% is acceptable, <99% indicates serious reliability issues requiring infrastructure investment.",
           "value": 99.9,
           "unit": "%",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "A fundamental measure of system reliability and availability, directly impacting customer trust and business operations. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["System monitoring data (availability checks, ping tests)", "Incident records affecting availability"],
+            "collectionGuidance": [
+              {
+                "methodType": "Monitoring Tools & Incident Tracking",
+                "toolExamples": ["AWS CloudWatch [cite: 15]", "Google Cloud Operations (Stackdriver) [cite: 15]", "Datadog [cite: 15]", "Pingdom"],
+                "notes": "Requires clear definition of 'downtime' and consistent monitoring."
+              }
+            ]
+          }
         },
         {
           "name": "Recovery Time",
           "description": "Average time to recover from failures",
+          "explanation": "Mean time to restore full service after system failures, including detection, diagnosis, and resolution time. Range: 1 minute to several hours, where <15 minutes is excellent, 15-60 minutes is good, 1-4 hours is acceptable, >4 hours indicates inadequate incident response capabilities.",
           "value": 15,
           "unit": "min",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "Measures the efficiency of incident response and system restorability, crucial for minimizing the impact of outages. [cite: 1, 7] (overlaps with MTTR from DORA)",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Incident detection timestamps", "Incident resolution timestamps"],
+            "collectionGuidance": [
+              {
+                "methodType": "Incident Management System Data",
+                "toolExamples": ["PagerDuty", "ServiceNow", "Jira Service Desk"],
+                "notes": "Distinct from DORA's MTTR which is specific to recovery from failed *deployments*."
+              }
+            ]
+          }
         },
         {
           "name": "Backup Success Rate",
           "description": "Percentage of successful backups",
+          "explanation": "Reliability of backup processes across all systems and data types. Critical for disaster recovery capability. Range: 90-100%, where 100% is ideal, >98% is good, 95-98% is acceptable, <95% represents significant data loss risk requiring immediate backup process review.",
           "value": 100,
           "unit": "%",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "Indicates the reliability of data protection mechanisms, fundamental for disaster recovery and business continuity. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Backup job logs (success/failure status)", "Backup completion timestamps"],
+            "collectionGuidance": [
+              {
+                "methodType": "Backup System Monitoring",
+                "toolExamples": ["AWS Backup logs", "Veeam reports", "Commvault logs"],
+                "notes": "Requires monitoring all critical backup jobs."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Knowledge Islands Risk",
+          "description": "Critical systems dependent on single developers",
+          "explanation": "Number of business-critical systems where only one person has deep operational knowledge. Represents severe business continuity risk. Range: 0-20+ systems, where 0 is ideal, 1-3 is manageable with documentation, 4-8 needs knowledge transfer planning, >8 represents critical business risk.",
+          "value": 5,
+          "unit": "systems",
+          "status": "critical",
+          "grafana": {
+            "dashboardUid": "business-continuity-risk",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "12h"
+          },
+          "metricRationale": "Highlights single points of failure related to human capital and specialized knowledge, a key business continuity risk. [cite: 1, 7, 8]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Identification of critical systems", "Analysis of commit history/authorship for those systems", "Skills matrices", "Team surveys on system knowledge"],
+            "collectionGuidance": [
+              {
+                "methodType": "Combination of Technical Analysis & Human Assessment",
+                "toolExamples": ["Version control analysis (e.g., CodeScene)", "Internal surveys", "Dependency mapping tools"],
+                "notes": "Often requires qualitative input and management judgment alongside technical data."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Legacy Code Stability",
+          "description": "Stability score of older, untouched code",
+          "explanation": "Reliability assessment of legacy systems that haven't been modified recently. Older stable code often has fewer bugs but may have hidden technical debt. Range: 70-100%, where >95% indicates stable legacy systems, 85-95% is good, 75-85% needs monitoring, <75% suggests legacy system risks.",
+          "value": 92,
+          "unit": "%",
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "business-continuity-risk",
+            "panelId": 2,
+            "height": 300,
+            "refresh": "6h"
+          },
+          "metricRationale": "Assesses the operational risk associated with aging codebases that may lack current expertise or be built on outdated technology. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["Age of codebase (last significant modification)", "Incident rates for legacy systems", "Availability of skilled personnel for legacy tech", "Known vulnerabilities in underlying legacy components"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of System Age, Incident Data & Skill Availability",
+                "toolExamples": ["Version control history", "Incident management data", "Skills inventory"],
+                "notes": "Requires defining 'legacy' and a method to score stability."
+              }
+            ]
+          }
+        },
+        {
+          "name": "Bus Factor Score",
+          "description": "Average number of people who know each critical system",
+          "explanation": "Average number of team members with sufficient knowledge to maintain each critical system. Higher numbers reduce single-point-of-failure risks. Range: 1-10+ people, where >3 is excellent, 2-3 is good, 1.5-2 is risky, <1.5 represents critical knowledge concentration requiring immediate cross-training.",
+          "value": 2.3,
+          "unit": "people",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "business-continuity-risk",
+            "panelId": 3,
+            "height": 300,
+            "refresh": "12h"
+          },
+          "metricRationale": "Directly quantifies the 'bus factor' or key-person dependency for critical systems, informing knowledge transfer and cross-training initiatives. [cite: 1, 7, 8]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["List of critical systems", "Number of individuals with operational/development knowledge per system (from authorship analysis, skills matrix, surveys)"],
+            "collectionGuidance": [
+              {
+                "methodType": "Combination of VCS Analysis, Skills Mapping & Surveys",
+                "toolExamples": ["CodeScene", "Internal skills databases", "Team self-assessments"],
+                "notes": "Similar to 'Knowledge Islands Risk' but provides an average across systems."
+              }
+            ]
+          }
         }
       ]
     },
     "sales-pipeline": {
       "id": "sales-pipeline",
       "name": "Sales Pipeline Alignment",
-      "description": "Measures how well technology supports sales processes.",
+      "description": "Measures how well technology supports sales processes. [cite: 1]",
+      "explanation": "Evaluates the effectiveness of technology in supporting sales operations, from lead generation through deal closure. Proper technology alignment accelerates sales cycles and improves conversion rates. [cite: 1, 7]",
       "category": "strategic",
       "metrics": [
         {
           "name": "Pipeline Velocity",
           "description": "Speed of deal progression",
+          "explanation": "Rate at which opportunities move through the sales pipeline, influenced by CRM effectiveness and process automation. Range: 0-100%, where >80% is excellent, 60-80% is good, 40-60% needs improvement, <40% indicates significant sales process or technology gaps.",
           "value": 75,
           "unit": "%",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "Indicates the efficiency of the sales process and the supporting technology's role in moving deals forward. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["CRM data (deal stage changes, time in stage)", "Sales activity logs"],
+            "collectionGuidance": [
+              {
+                "methodType": "CRM Data Analysis",
+                "toolExamples": ["Salesforce reports", "HubSpot analytics"],
+                "notes": "Requires well-defined sales stages in the CRM."
+              }
+            ]
+          }
         },
         {
           "name": "Conversion Rate",
           "description": "Lead to opportunity conversion",
+          "explanation": "Percentage of leads that convert to qualified opportunities, reflecting lead quality and nurturing effectiveness. Range: 10-50%, where >40% is excellent, 30-40% is good, 20-30% is average, <20% suggests lead quality or qualification process issues.",
           "value": 35,
           "unit": "%",
-          "status": "warning"
+          "status": "warning",
+          "metricRationale": "Measures the effectiveness of lead generation and qualification processes, influenced by marketing automation and CRM capabilities. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Number of leads generated", "Number of leads converted to opportunities (CRM data)"],
+            "collectionGuidance": [
+              {
+                "methodType": "CRM & Marketing Automation Data Analysis",
+                "toolExamples": ["Salesforce", "Marketo", "HubSpot"],
+                "notes": "Requires clear definitions of 'lead' and 'qualified opportunity'."
+              }
+            ]
+          }
         },
         {
           "name": "Sales Cycle Time",
           "description": "Average time to close deals",
+          "explanation": "Mean duration from opportunity creation to deal closure, indicating sales process efficiency and technology support effectiveness. Range: 15-180+ days, where <30 days is excellent, 30-60 days is good, 60-90 days is average, >90 days may indicate process inefficiencies.",
           "value": 45,
           "unit": "days",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "Indicates the overall efficiency of the sales process from opportunity to closure, where supporting technology plays a key role. [cite: 1]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["CRM data (opportunity creation date, deal closure date)"],
+            "collectionGuidance": [
+              {
+                "methodType": "CRM Data Analysis",
+                "toolExamples": ["Salesforce reports", "HubSpot analytics"],
+                "notes": "Requires accurate logging of deal lifecycle timestamps in the CRM."
+              }
+            ]
+          }
         }
       ]
     },
     "sla-compliance": {
       "id": "sla-compliance",
       "name": "SLA & Contractual Compliance",
-      "description": "Tracks adherence to service level agreements and contracts.",
+      "description": "Tracks adherence to service level agreements and contracts. [cite: 1]",
+      "explanation": "Monitors compliance with committed service levels and contractual obligations. Poor SLA performance can result in financial penalties, contract cancellations, and reputation damage. [cite: 1, 7]",
       "category": "strategic",
       "metrics": [
         {
           "name": "SLA Compliance",
           "description": "Percentage of SLAs met",
+          "explanation": "Overall compliance rate across all service level agreements. Critical for maintaining customer relationships and avoiding penalties. Range: 85-100%, where >98% is excellent, 95-98% is good, 90-95% is acceptable, <90% risks contract penalties and customer dissatisfaction.",
           "value": 98,
           "unit": "%",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "Directly measures performance against contractual obligations to customers, impacting customer satisfaction and potential financial penalties. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Monitoring data for SLA parameters (e.g., uptime[cite: 1], response time [cite: 7])", "Contractual SLA terms"],
+            "collectionGuidance": [
+              {
+                "methodType": "Comparison of Monitoring Data against SLA Thresholds",
+                "toolExamples": ["Service-level monitoring tools", "Incident management systems (for response time SLAs)"],
+                "notes": "Requires all SLA parameters to be actively monitored."
+              }
+            ]
+          }
         },
         {
           "name": "Contract Renewal Rate",
           "description": "Rate of contract renewals",
+          "explanation": "Percentage of contracts successfully renewed, indicating customer satisfaction with service delivery. Range: 70-100%, where >90% is excellent, 80-90% is good, 70-80% needs attention, <70% suggests serious service quality issues requiring immediate improvement.",
           "value": 92,
           "unit": "%",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "Reflects long-term customer satisfaction and the perceived value of services, heavily influenced by consistent SLA performance. [cite: 1, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Financial",
+            "specificDataPoints": ["Customer contract data (renewal dates, status)", "CRM records"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Contract Management & CRM Data",
+                "toolExamples": ["Contract lifecycle management (CLM) systems", "Salesforce"],
+                "notes": "Requires accurate tracking of contract terms and renewal outcomes."
+              }
+            ]
+          }
         },
         {
           "name": "Response Time",
           "description": "Average response time to issues",
+          "explanation": "Mean time to initial response for customer issues and service requests. Faster response improves customer satisfaction and often contractually required. Range: 5 minutes to 4+ hours, where <15 minutes is excellent, 15-30 minutes is good, 30-60 minutes is acceptable, >1 hour may violate SLA commitments.",
           "value": 30,
           "unit": "min",
-          "status": "warning"
+          "status": "warning",
+          "metricRationale": "Measures the agility and efficiency of customer support operations, a key component of many SLAs and a driver of customer satisfaction. [cite: 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Operational",
+            "specificDataPoints": ["Customer support ticket timestamps (creation time, first response time)"],
+            "collectionGuidance": [
+              {
+                "methodType": "Helpdesk/Service Desk System Reporting",
+                "toolExamples": ["Jira Service Desk", "Zendesk", "ServiceNow"],
+                "notes": "Requires consistent logging of ticket interaction times."
+              }
+            ]
+          }
         }
       ]
     },
     "cost-control": {
       "id": "cost-control",
       "name": "Cost Control & Optimisation",
-      "description": "Monitors technology spending and optimization efforts.",
+      "description": "Monitors technology spending and optimization efforts with technical debt cost analysis and meeting efficiency economics. [cite: 1, 3]",
+      "explanation": "Combines traditional cost management with technical debt economics and meeting cost analysis to provide comprehensive view of technology investment efficiency. Includes operational costs, hidden costs of technical debt, and productivity costs of inefficient meeting practices. [cite: 1, 3, 12]",
       "category": "strategic",
       "metrics": [
         {
           "name": "Cost Efficiency",
           "description": "Cost per transaction",
+          "explanation": "Average cost to process each business transaction, including infrastructure, development, and operational costs. Lower costs indicate better efficiency. Range: $0.01-$10+ per transaction, where <$0.20 is excellent, $0.20-$0.50 is good, $0.50-$1.00 needs optimization, >$1.00 indicates significant inefficiencies.",
           "value": 0.15,
           "unit": "$",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "Provides a unit economic view of technology operations, helping to identify opportunities for scaling efficiencies or cost reductions per unit of business output. [cite: 3]",
+          "dataSourceProfile": {
+            "primaryCategory": "Financial",
+            "specificDataPoints": ["Total operational costs for a service/system", "Number of business transactions processed by that service/system"],
+            "collectionGuidance": [
+              {
+                "methodType": "Financial & Operational Data Correlation",
+                "toolExamples": ["Financial accounting systems", "Application monitoring tools (for transaction counts)", "Cloud billing data"],
+                "notes": "Requires clear definition of a 'transaction' and accurate cost allocation."
+              }
+            ]
+          }
         },
         {
           "name": "Resource Utilization",
-          "description": "Percentage of resources utilized",
+          "description": "Percentage of resources utilized (also in Business Impact)",
+          "explanation": "Average utilization of computing resources including CPU, memory, and storage across all systems. Optimal utilization balances performance with cost efficiency. Range: 40-95%, where 70-85% is optimal, 60-70% is acceptable, <60% indicates over-provisioning, >85% risks performance issues.",
           "value": 85,
           "unit": "%",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "Monitors the efficiency of infrastructure spend; optimizing utilization can lead to significant cost savings without compromising performance. [cite: 1, 3]",
+          "dataSourceProfile": {
+            "primaryCategory": "Engineering",
+            "specificDataPoints": ["CPU utilization", "Memory usage", "Storage capacity usage", "Network bandwidth consumption"],
+            "collectionGuidance": [
+              {
+                "methodType": "API Integration with Monitoring Tools",
+                "toolExamples": ["AWS CloudWatch [cite: 15]", "Google Cloud Operations [cite: 15]", "Datadog [cite: 15]", "Prometheus [cite: 16]"],
+                "exampleEndpoints": ["AWS CloudWatch GetMetricData (CPUUtilization) [cite: 15]"],
+                "notes": "Duplicate of metric in Business Impact, shown here for cost context. Data sources are the same."
+              }
+            ]
+          }
         },
         {
           "name": "Cost Savings",
-          "description": "Total cost savings achieved",
+          "description": "Total cost savings achieved (also in Business Impact)",
+          "explanation": "Cumulative cost reductions achieved through optimization initiatives, automation, and efficiency improvements over the measurement period. Range: $10k-$5M+ annually, where savings >20% of IT budget is excellent, 10-20% is good, 5-10% is acceptable, <5% suggests limited optimization efforts.",
           "value": 250,
           "unit": "k",
-          "status": "good"
-        }
-      ]
-    },
-    "exec-decision": {
-      "id": "exec-decision",
-      "name": "Executive Decision Support",
-      "description": "Evaluates how well technology supports executive decision-making.",
-      "category": "strategic",
-      "metrics": [
-        {
-          "name": "Data Quality",
-          "description": "Quality score of decision support data",
-          "value": 90,
-          "unit": "%",
-          "status": "good"
+          "status": "good",
+          "metricRationale": "Directly quantifies the financial benefits of cost optimization efforts, validating investments in efficiency. [cite: 3, 12]",
+          "dataSourceProfile": {
+            "primaryCategory": "Financial",
+            "specificDataPoints": ["Budgeted vs. actual spend on technology", "Cost reductions from automation projects", "Savings from infrastructure optimization"],
+            "collectionGuidance": [
+              {
+                "methodType": "Financial Reporting Analysis & Project Tracking",
+                "toolExamples": ["Financial planning software", "Project management tools"],
+                "notes": "Duplicate of metric in Business Impact, shown here for cost context. Data sources are the same."
+              }
+            ]
+          }
         },
         {
-          "name": "Report Accuracy",
-          "description": "Accuracy of executive reports",
-          "value": 95,
-          "unit": "%",
-          "status": "good"
+          "name": "Technical Debt Operational Cost",
+          "description": "Monthly operational cost attributed to technical debt",
+          "explanation": "Estimated monthly cost incurred due to inefficiencies caused by technical debt, such as increased support tickets, longer incident resolution times, and higher maintenance effort for debt-laden systems. Range: $5k-$500k+/month.",
+          "value": 75,
+          "unit": "k/month",
+          "status": "warning",
+          "grafana": {
+            "dashboardUid": "cost-control-tech-debt",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1w"
+          },
+          "metricRationale": "Highlights the ongoing 'interest payments' on technical debt in terms of increased operational expenditure, separate from the principal cost to refactor. [cite: 1, 3]",
+          "dataSourceProfile": {
+            "primaryCategory": "Financial",
+            "specificDataPoints": ["Time spent on bug fixing in legacy/debt areas", "Support ticket volume related to known debt issues", "Effort for workarounds due to tech debt limitations"],
+            "collectionGuidance": [
+              {
+                "methodType": "Analysis of Support, Maintenance & Incident Data",
+                "toolExamples": ["Jira/Issue tracking systems", "Time tracking systems", "Code analysis tools to identify debt areas"],
+                "notes": "Requires a model to attribute specific operational costs to technical debt."
+              }
+            ]
+          }
         },
         {
-          "name": "Decision Time",
-          "description": "Average time to make decisions",
-          "value": 2,
-          "unit": "days",
-          "status": "warning"
-        }
-      ]
-    },
-    "policy-control": {
-      "id": "policy-control",
-      "name": "Policy & Control Effectiveness",
-      "description": "Assesses the effectiveness of policies and controls.",
-      "category": "strategic",
-      "metrics": [
-        {
-          "name": "Policy Compliance",
-          "description": "Percentage of policies followed",
-          "value": 96,
-          "unit": "%",
-          "status": "good"
+          "name": "Meeting Cost Annually",
+          "description": "Estimated annual cost of employee time spent in meetings",
+          "explanation": "Calculated based on average loaded salary, total meeting hours from Meeting Time Utilization, and number of employees. Highlights the significant financial investment in meetings. Range: $100k - $10M+.",
+          "value": 1.2,
+          "unit": "M",
+          "status": "critical",
+          "grafana": {
+            "dashboardUid": "cost-control-meetings",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1M"
+          },
+          "metricRationale": "Quantifies the substantial, often hidden, cost of meetings, providing a financial incentive to improve meeting efficiency and culture. [cite: 3, 7]",
+          "dataSourceProfile": {
+            "primaryCategory": "Financial",
+            "specificDataPoints": ["Meeting Time Utilization data", "Average employee loaded cost (salary + benefits)", "Total number of employees participating in meetings"],
+            "collectionGuidance": [
+              {
+                "methodType": "Calculation based on HR & Calendar Data",
+                "toolExamples": ["HRIS for salary data", "Calendar analytics for meeting time"],
+                "notes": "Relies on accurate meeting participation data and average cost estimations."
+              }
+            ]
+          }
         },
         {
-          "name": "Control Effectiveness",
-          "description": "Effectiveness of implemented controls",
-          "value": 88,
+          "name": "Cloud Spend Efficiency",
+          "description": "Percentage of cloud spend considered optimally utilized or value-generating",
+          "explanation": "Measures how effectively the cloud budget is being used, considering factors like reserved instance utilization, rightsizing, and eliminating idle resources. Range: 50-100%, where >85% is good.",
+          "value": 78,
           "unit": "%",
-          "status": "good"
-        },
-        {
-          "name": "Audit Score",
-          "description": "Overall audit performance score",
-          "value": 92,
-          "unit": "%",
-          "status": "good"
+          "status": "good",
+          "grafana": {
+            "dashboardUid": "cost-control-cloud",
+            "panelId": 1,
+            "height": 300,
+            "refresh": "1d"
+          },
+          "metricRationale": "Tracks the effectiveness of cloud cost management practices, aiming to maximize value from cloud investments and minimize waste. [cite: 3]",
+          "dataSourceProfile": {
+            "primaryCategory": "Financial",
+            "specificDataPoints": ["Cloud provider billing data (e.g., AWS Cost Explorer, Azure Cost Management)", "Resource tagging for cost allocation", "Utilization metrics for cloud resources"],
+            "collectionGuidance": [
+              {
+                "methodType": "Cloud Cost Management Tools & Billing Analysis",
+                "toolExamples": ["AWS Cost Explorer", "Azure Cost Management + Billing", "Google Cloud Billing", "Third-party cloud cost optimization platforms (e.g., CloudHealth, Flexera One)"],
+                "notes": "Requires diligent resource tagging and use of cloud provider cost analysis tools."
+              }
+            ]
+          }
         }
       ]
     }
   },
-  "lastUpdated": "2024-03-19T12:00:00Z",
+  "lastUpdated": "2025-05-30T12:00:00Z",
   "grafanaConfig": {
     "baseUrl": "http://localhost:3000"
+  },
+  "metricSources": {
+    "dora": {
+      "description": "DORA (DevOps Research and Assessment) metrics for deployment performance",
+      "explanation": "Industry-standard metrics developed by the DevOps Research and Assessment team to measure software delivery performance. Elite teams excel in all four metrics: high deployment frequency, short lead times, low change failure rates, and fast recovery times.",
+      "metrics": ["Deployment Frequency", "Lead Time for Changes", "Change Failure Rate", "Mean Time to Recovery"]
+    },
+    "codeCrimeScene": {
+      "description": "Code analysis metrics based on Adam Tornhill's 'Your Code as a Crime Scene'",
+      "explanation": "Advanced code quality metrics that analyze code evolution patterns, developer behavior, and architectural risks. Uses version control history to identify problematic code areas and knowledge distribution issues that traditional static analysis misses.",
+      "metrics": ["Code Hotspots", "Change Coupling Index", "Knowledge Distribution", "Temporal Coupling Risk", "Hotspot Defect Density", "Security Hotspots", "Knowledge Islands Risk", "Technical Debt Principal"]
+    }
   }
-} 
+}
