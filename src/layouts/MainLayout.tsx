@@ -9,9 +9,14 @@ import {
   Toolbar,
   Typography,
   useTheme,
+  Button,
+  Avatar,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AssessmentIcon from '@mui/icons-material/Assessment';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import Sidebar from '../components/Sidebar.tsx';
 import Footer from '../components/Footer';
 
@@ -24,9 +29,16 @@ interface MainLayoutProps {
 export default function MainLayout({ children }: MainLayoutProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
+  const navigate = useNavigate();
+  const { username, logout } = useAuth();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/auth');
   };
 
   return (
@@ -42,42 +54,67 @@ export default function MainLayout({ children }: MainLayoutProps) {
           boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
         }}
       >
-        <Toolbar sx={{ minHeight: '70px' }}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
+        <Toolbar sx={{ minHeight: '70px', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <AssessmentIcon sx={{ fontSize: 32 }} />
-            <Box>
-              <Typography
-                variant="h5"
-                component="div"
-                sx={{
-                  fontWeight: 600,
-                  letterSpacing: '0.5px',
-                  background: 'linear-gradient(45deg, #fff 30%, #e3f2fd 90%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                Technical Value Review Framework
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  letterSpacing: '0.5px',
-                }}
-              >
-                Enterprise Technology Assessment
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <AssessmentIcon sx={{ fontSize: 32 }} />
+              <Box>
+                <Typography
+                  variant="h5"
+                  component="div"
+                  sx={{
+                    fontWeight: 600,
+                    letterSpacing: '0.5px',
+                    background: 'linear-gradient(45deg, #fff 30%, #e3f2fd 90%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}
+                >
+                  Technical Value Review Framework
+                </Typography>
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    letterSpacing: '0.5px',
+                  }}
+                >
+                  Enterprise Technology Assessment
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+          
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Avatar sx={{ bgcolor: theme.palette.secondary.main }}>
+                {username?.charAt(0).toUpperCase()}
+              </Avatar>
+              <Typography variant="subtitle1" sx={{ color: 'white' }}>
+                {username}
               </Typography>
             </Box>
+            <Button
+              color="inherit"
+              startIcon={<LogoutIcon />}
+              onClick={handleLogout}
+              sx={{
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                },
+              }}
+            >
+              Logout
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
