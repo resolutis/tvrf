@@ -1,7 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import MainLayout from './layouts/MainLayout';
+import AuthPage from './pages/AuthPage';
 import PillarPage from './pages/PillarPage';
+import HomePage from './pages/HomePage';
 import { PILLAR_IDS } from './types/tvrf';
 
 // Create a theme instance
@@ -16,19 +19,48 @@ const theme = createTheme({
   },
 });
 
-function App() {
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  return <MainLayout>{children}</MainLayout>;
+}
+
+function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/auth" element={<AuthPage />} />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/pillar/:pillarId"
+        element={
+          <ProtectedRoute>
+            <PillarPage />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+  );
+}
+
+export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <MainLayout>
-          <Routes>
-            <Route path="/" element={<Navigate to={`/pillar/${PILLAR_IDS.BUSINESS_IMPACT}`} replace />} />
-            <Route path="/pillar/:pillarId" element={<PillarPage />} />
-          </Routes>
-        </MainLayout>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
       </Router>
     </ThemeProvider>
   );
 }
-
-export default App;
