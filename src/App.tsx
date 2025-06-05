@@ -5,7 +5,6 @@ import MainLayout from './layouts/MainLayout';
 import AuthPage from './pages/AuthPage';
 import PillarPage from './pages/PillarPage';
 import HomePage from './pages/HomePage';
-import { PILLAR_IDS } from './types/tvrf';
 
 // Create a theme instance
 const theme = createTheme({
