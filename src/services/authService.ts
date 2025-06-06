@@ -2,6 +2,8 @@ const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
   "https://94x2bbtt7d.execute-api.eu-west-2.amazonaws.com/prod";
 
+const API_KEY = import.meta.env.VITE_API_KEY || ""; // Read API key from .env file
+
 interface AuthResponse {
   message: string;
 }
@@ -20,6 +22,7 @@ export const authService = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-api-key": API_KEY,
         },
         body: JSON.stringify({ username, password }),
       });
@@ -48,6 +51,7 @@ export const authService = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-api-key": API_KEY,
         },
         body: JSON.stringify({ username, password }),
       });
@@ -73,6 +77,7 @@ export const authService = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-api-key": API_KEY,
         },
         body: JSON.stringify({ username, password }),
       });
