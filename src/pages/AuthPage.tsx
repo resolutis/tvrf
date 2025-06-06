@@ -12,6 +12,7 @@ import {
   Tabs,
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
+import Footer from '../components/Footer';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -63,116 +64,118 @@ export default function AuthPage() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Paper
-          elevation={3}
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <Container component="main" maxWidth="xs" sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <Box
           sx={{
-            width: '100%',
-            borderRadius: 2,
-            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
-          <Tabs
-            value={tabValue}
-            onChange={handleTabChange}
-            variant="fullWidth"
-            sx={{ borderBottom: 1, borderColor: 'divider' }}
+          <Paper
+            elevation={3}
+            sx={{
+              width: '100%',
+              borderRadius: 2,
+              overflow: 'hidden',
+            }}
           >
-            <Tab label="Login" />
-            <Tab label="Register" />
-          </Tabs>
+            <Tabs
+              value={tabValue}
+              onChange={handleTabChange}
+              variant="fullWidth"
+              sx={{ borderBottom: 1, borderColor: 'divider' }}
+            >
+              <Tab label="Login" />
+              <Tab label="Register" />
+            </Tabs>
 
-          <TabPanel value={tabValue} index={0}>
-            <Typography component="h1" variant="h5" gutterBottom>
-              Login
-            </Typography>
-            {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-            <Box component="form" onSubmit={handleSubmit} noValidate>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoComplete="username"
-                autoFocus
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
+            <TabPanel value={tabValue} index={0}>
+              <Typography component="h1" variant="h5" gutterBottom>
                 Login
-              </Button>
-            </Box>
-          </TabPanel>
+              </Typography>
+              {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+              <Box component="form" onSubmit={handleSubmit} noValidate>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
+                  autoFocus
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Login
+                </Button>
+              </Box>
+            </TabPanel>
 
-          <TabPanel value={tabValue} index={1}>
-            <Typography component="h1" variant="h5" gutterBottom>
-              Register
-            </Typography>
-            {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-            <Box component="form" onSubmit={handleSubmit} noValidate>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoComplete="username"
-                autoFocus
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
+            <TabPanel value={tabValue} index={1}>
+              <Typography component="h1" variant="h5" gutterBottom>
                 Register
-              </Button>
-            </Box>
-          </TabPanel>
-        </Paper>
-      </Box>
-    </Container>
+              </Typography>
+              {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+              <Box component="form" onSubmit={handleSubmit} noValidate>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
+                  autoFocus
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Register
+                </Button>
+              </Box>
+            </TabPanel>
+          </Paper>
+        </Box>
+      </Container>
+      <Footer />
+    </Box>
   );
 } 
