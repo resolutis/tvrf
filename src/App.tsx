@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import MainLayout from './layouts/MainLayout';
 import AuthPage from './pages/AuthPage';
 import PillarPage from './pages/PillarPage';
@@ -19,7 +19,7 @@ const theme = createTheme({
 });
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated } = useAuth();
+  // const { isAuthenticated } = useAuth();
 
   // if (!isAuthenticated) {
   //   return <Navigate to="/auth" replace />;

@@ -2,7 +2,6 @@ import { useParams, Navigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import PillarDashboard from '../components/PillarDashboard';
 import { getPillarById } from '../services/pillarService';
-import pillarsData from '../data/pillars.json';
 
 export default function PillarPage() {
   const { pillarId } = useParams<{ pillarId: string }>();
@@ -26,7 +25,7 @@ export default function PillarPage() {
   return (
     <PillarDashboard 
       pillar={pillar}
-      grafanaBaseUrl={pillarsData.grafanaConfig?.baseUrl}
+      grafanaBaseUrl={undefined}
     />
   );
 } 
