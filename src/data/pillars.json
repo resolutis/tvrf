@@ -75,12 +75,6 @@
           "value": 480,
           "unit": "k",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "tech-debt-economics",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1d"
-          },
           "metricRationale": "Quantifies the financial liability of accumulated code quality issues, informing strategic decisions on refactoring investments to prevent future productivity loss and increased maintenance costs. [cite: 1, 12, 17]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
@@ -114,12 +108,6 @@
           "value": 23,
           "unit": "%",
           "status": "critical",
-          "grafana": {
-            "dashboardUid": "tech-debt-economics",
-            "panelId": 2,
-            "height": 300,
-            "refresh": "1h"
-          },
           "metricRationale": "Highlights the operational cost of technical debt in terms of lost developer efficiency, directly impacting project timelines and development capacity. [cite: 1, 7]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
@@ -140,12 +128,6 @@
           "value": 3.2,
           "unit": "ratio",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "tech-debt-economics",
-            "panelId": 3,
-            "height": 300,
-            "refresh": "1w"
-          },
           "metricRationale": "Provides a financial justification for technical debt remediation efforts by comparing the cost of refactoring to the expected benefits in productivity and reduced operational issues. [cite: 3, 12]",
           "dataSourceProfile": {
             "primaryCategory": "Financial",
@@ -166,12 +148,6 @@
           "value": 4.2,
           "unit": "score",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "service-stability-composite",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "6h"
-          },
           "metricRationale": "Offers a holistic view of business process stability as reflected in the technology service landscape, helping to identify periods of significant change or potential operational stress. [cite: 7, 5]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
@@ -219,12 +195,6 @@
           "value": 45,
           "unit": "k",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "deployment-costs",
-            "panelId": 3,
-            "height": 300,
-            "refresh": "10m"
-          },
           "metricRationale": "Translates inefficiencies in the software delivery lifecycle into direct financial terms, highlighting areas for process improvement in CI/CD pipelines. [cite: 1, 3]",
           "dataSourceProfile": {
             "primaryCategory": "Financial",
@@ -245,12 +215,6 @@
           "value": 125,
           "unit": "k/month",
           "status": "critical",
-          "grafana": {
-            "dashboardUid": "tech-debt-business-impact",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1h"
-          },
           "metricRationale": "Directly links code quality and architectural issues to potential revenue loss, providing a strong financial argument for investing in technical debt reduction. [cite: 1, 12]",
           "dataSourceProfile": {
             "primaryCategory": "Financial",
@@ -354,12 +318,6 @@
           "value": -5.2,
           "unit": "%",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "executive-code-insights",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1d"
-          },
           "metricRationale": "Provides executives with a high-level, forward-looking indicator of software asset quality, signaling potential future risks or improvements in development practices. [cite: 1]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
@@ -380,12 +338,6 @@
           "value": 78,
           "unit": "%",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "executive-code-insights",
-            "panelId": 2,
-            "height": 300,
-            "refresh": "6h"
-          },
           "metricRationale": "Measures the effectiveness of using engineering data (code quality) to proactively identify and mitigate operational risks, enhancing system stability and reliability. [cite: 1, 12]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
@@ -406,12 +358,6 @@
           "value": 82,
           "unit": "%",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "executive-code-insights",
-            "panelId": 3,
-            "height": 300,
-            "refresh": "1w"
-          },
           "metricRationale": "Assesses whether development effort is strategically focused on areas that code analysis identifies as critical (e.g., high-risk hotspots, tech debt reduction), optimizing the use of resources. [cite: 1, 12]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
@@ -432,12 +378,6 @@
           "value": 42,
           "unit": "%",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "meeting-analytics",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1d"
-          },
           "metricRationale": "Highlights potential productivity drains due to excessive meeting loads, prompting reviews of meeting culture and efficiency. [cite: 3, 7]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
@@ -458,12 +398,6 @@
           "value": 3.2,
           "unit": "ratio",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "meeting-analytics",
-            "panelId": 2,
-            "height": 300,
-            "refresh": "1d"
-          },
           "metricRationale": "Provides insights into the balance of internal collaboration versus external engagement, which can be indicative of organizational focus and priorities. [cite: 7]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
@@ -484,12 +418,6 @@
           "value": 67,
           "unit": "%",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "meeting-analytics",
-            "panelId": 3,
-            "height": 300,
-            "refresh": "1d"
-          },
           "metricRationale": "Offers a quantitative assessment of meeting culture effectiveness, identifying potential inefficiencies in how meetings are conducted. [cite: 7]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
@@ -510,12 +438,6 @@
           "value": 28,
           "unit": "%",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "meeting-analytics",
-            "panelId": 4,
-            "height": 300,
-            "refresh": "1d"
-          },
           "metricRationale": "Identifies a common source of meeting inefficiency, as larger meetings often struggle with engagement and decision-making effectiveness. [cite: 7]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
@@ -536,12 +458,6 @@
           "value": 74,
           "unit": "%",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "meeting-analytics",
-            "panelId": 5,
-            "height": 300,
-            "refresh": "1d"
-          },
           "metricRationale": "Assesses whether meeting sizes are appropriate for their likely purpose, promoting more effective use of collaborative time. [cite: 7]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
@@ -652,13 +568,6 @@
           "value": 12,
           "unit": "/day",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "dora-metrics",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1m"
-          },
-          "metricRationale": "Indicates the organization's agility and ability to deliver value to users quickly and frequently, a core tenant of high-performing DevOps teams. [cite: 1]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Deployment logs from CI/CD pipelines", "Release records"],
@@ -679,13 +588,6 @@
           "value": 2.5,
           "unit": "days",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "dora-metrics",
-            "panelId": 2,
-            "height": 300,
-            "refresh": "5m"
-          },
-          "metricRationale": "Measures the speed and efficiency of the entire software delivery process, from code creation to deployment, highlighting potential bottlenecks. [cite: 1]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Commit timestamps from version control", "Deployment timestamps from CI/CD pipelines"],
@@ -705,13 +607,6 @@
           "value": 5,
           "unit": "%",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "dora-metrics",
-            "panelId": 3,
-            "height": 300,
-            "refresh": "10m"
-          },
-          "metricRationale": "Indicates the reliability and quality of the deployment process; a low rate signifies mature testing and release practices, minimizing user impact. [cite: 1]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Deployment logs", "Incident records related to deployments", "Rollback event logs"],
@@ -731,13 +626,6 @@
           "value": 45,
           "unit": "min",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "dora-metrics",
-            "panelId": 4,
-            "height": 300,
-            "refresh": "5m"
-          },
-          "metricRationale": "Measures the organization's ability to quickly restore service after an incident, directly impacting user experience and business continuity. [cite: 1, 7]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
             "specificDataPoints": ["Incident start times", "Incident resolution times", "System log timestamps (error detection and recovery) [cite: 1, 16]"],
@@ -757,13 +645,6 @@
           "value": 23,
           "unit": "files",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "code-crime-scene",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1h"
-          },
-          "metricRationale": "Pinpoints specific areas in the codebase that are likely sources of bugs and maintenance overhead, allowing for targeted refactoring efforts. [cite: 1]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Code complexity metrics (e.g., cyclomatic complexity)", "Version control history (change frequency per file)"],
@@ -783,13 +664,6 @@
           "value": 0.68,
           "unit": "score",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "code-crime-scene",
-            "panelId": 2,
-            "height": 300,
-            "refresh": "1h"
-          },
-          "metricRationale": "Identifies hidden dependencies between code modules, which can increase the risk of unintended consequences during changes and indicate architectural weaknesses. [cite: 1]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Version control history (co-changing files in commits)"],
@@ -809,13 +683,6 @@
           "value": 34,
           "unit": "%",
           "status": "critical",
-          "grafana": {
-            "dashboardUid": "code-crime-scene",
-            "panelId": 3,
-            "height": 300,
-            "refresh": "6h"
-          },
-          "metricRationale": "Highlights business continuity risks associated with concentrated knowledge in specific code areas, informing efforts for knowledge sharing and cross-training. [cite: 1, 7]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Version control history (authorship patterns per file/module)", "Git contributor metrics [cite: 3]"],
@@ -835,13 +702,6 @@
           "value": 18,
           "unit": "file pairs",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "code-crime-scene",
-            "panelId": 4,
-            "height": 300,
-            "refresh": "1h"
-          },
-          "metricRationale": "Uncovers non-obvious dependencies in the codebase that can lead to unexpected issues when changes are made, suggesting areas for architectural review. [cite: 1]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Version control history (patterns of files changed in the same commits)"],
@@ -861,13 +721,6 @@
           "value": 8.2,
           "unit": "defects/KLOC",
           "status": "critical",
-          "grafana": {
-            "dashboardUid": "code-quality-metrics",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1h"
-          },
-          "metricRationale": "Provides evidence of quality issues within the most problematic (hotspot) areas of the code, justifying targeted quality improvement efforts. [cite: 1]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Bug tracking data linked to code modules", "Lines of code (KLOC) for hotspot files", "Code hotspot identification data"],
@@ -956,13 +809,6 @@
           "value": 7,
           "unit": "files",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "security-code-analysis",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1h"
-          },
-          "metricRationale": "Identifies areas in the codebase that are chronic sources of security issues, suggesting a need for deeper architectural review or developer training. [cite: 1]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Version control history (commits tagged as security fixes)", "Code complexity of frequently patched files"],
@@ -982,13 +828,6 @@
           "value": 6.5,
           "unit": "score",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "security-code-analysis",
-            "panelId": 2,
-            "height": 300,
-            "refresh": "4h"
-          },
-          "metricRationale": "Assesses potential risks related to insider access to critical code, complementing traditional vulnerability scanning by focusing on human factors. [cite: 1, 5, 6]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Version control access logs", "Definition of sensitive code areas", "Developer roles and permissions"],
@@ -1008,13 +847,6 @@
           "value": 12,
           "unit": "%",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "security-code-analysis",
-            "panelId": 3,
-            "height": 300,
-            "refresh": "6h"
-          },
-          "metricRationale": "Identifies potential quality issues in security patches that were implemented under pressure, which might inadvertently create new problems. [cite: 1]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Commit messages for security fixes", "Commit timestamps relative to vulnerability disclosure or incident"],
@@ -1043,13 +875,6 @@
           "value": 127,
           "unit": "services",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "service-inventory",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1d"
-          },
-          "metricRationale": "Provides a basic inventory count, essential for understanding the scale and complexity of the technology landscape being managed. [cite: 1]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
             "specificDataPoints": ["Service catalog data", "CMDB records", "Microservice registration lists"],
@@ -1069,13 +894,6 @@
           "value": 98,
           "unit": "services",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "service-inventory",
-            "panelId": 2,
-            "height": 300,
-            "refresh": "1d"
-          },
-          "metricRationale": "Measures adherence to fundamental DevOps practices (version control), which is crucial for reproducibility, auditability, and collaborative development. [cite: 1, 2]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["List of services", "Mapping of services to Git repositories"],
@@ -1102,13 +920,6 @@
           "value": 77.2,
           "unit": "%",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "service-inventory",
-            "panelId": 3,
-            "height": 300,
-            "refresh": "1d"
-          },
-          "metricRationale": "Quantifies the extent to which the organization's services can be reliably rebuilt and redeployed, a key factor in disaster recovery and operational stability. [cite: 1, 7]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Count of Git-backed services", "Total count of services"],
@@ -1128,13 +939,6 @@
           "value": 4.3,
           "unit": "people",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "git-collaboration-metrics",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1d"
-          },
-          "metricRationale": "Indicates the level of collaborative effort and knowledge sharing within development teams, which can impact resilience and the 'bus factor'. [cite: 1, 3, 7]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Version control commit logs (author data per repository over a defined period)"],
@@ -1154,13 +958,6 @@
           "value": 3.7,
           "unit": "groups",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "git-collaboration-metrics",
-            "panelId": 2,
-            "height": 300,
-            "refresh": "1d"
-          },
-          "metricRationale": "Reflects the maturity of access control practices for code repositories, balancing security with appropriate access for collaboration. [cite: 1, 5, 6]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Repository permission settings from version control hosting platforms"],
@@ -1180,13 +977,6 @@
           "value": 12847,
           "unit": "users",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "service-usage-metrics",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1h"
-          },
-          "metricRationale": "Measures the overall reach and adoption of the organization's services, a key indicator of business scale and market penetration. [cite: 1, 7]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
             "specificDataPoints": ["User authentication logs", "Active user counts from various applications", "Subscription databases"],
@@ -1206,13 +996,6 @@
           "value": 8.3,
           "unit": "%",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "service-usage-metrics",
-            "panelId": 2,
-            "height": 300,
-            "refresh": "1d"
-          },
-          "metricRationale": "Tracks the momentum of service adoption or churn, providing insights into market dynamics, product success, or potential customer satisfaction issues. [cite: 1, 7]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
             "specificDataPoints": ["Time-series data of total service users"],
@@ -1232,13 +1015,6 @@
           "value": 73,
           "unit": "changes/month",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "service-usage-metrics",
-            "panelId": 3,
-            "height": 300,
-            "refresh": "1d"
-          },
-          "metricRationale": "Indicates the level of flux in access controls, which can be a symptom of organizational change, growth, or potential security adjustments. [cite: 1, 5, 6]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
             "specificDataPoints": ["Audit logs from IAM systems", "Access control change logs for repositories and applications"],
@@ -1258,13 +1034,6 @@
           "value": 234.7,
           "unit": "users",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "service-usage-metrics",
-            "panelId": 4,
-            "height": 300,
-            "refresh": "4h"
-          },
-          "metricRationale": "Reveals patterns in service adoption across the portfolio, highlighting potentially underutilized or overly critical services. [cite: 1, 7]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
             "specificDataPoints": ["User counts per individual service"],
@@ -1293,7 +1062,6 @@
           "value": 99.9,
           "unit": "%",
           "status": "good",
-          "metricRationale": "A fundamental measure of system reliability and availability, directly impacting customer trust and business operations. [cite: 1, 7]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["System monitoring data (availability checks, ping tests)", "Incident records affecting availability"],
@@ -1313,7 +1081,6 @@
           "value": 15,
           "unit": "min",
           "status": "good",
-          "metricRationale": "Measures the efficiency of incident response and system restorability, crucial for minimizing the impact of outages. [cite: 1, 7] (overlaps with MTTR from DORA)",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
             "specificDataPoints": ["Incident detection timestamps", "Incident resolution timestamps"],
@@ -1333,7 +1100,6 @@
           "value": 100,
           "unit": "%",
           "status": "good",
-          "metricRationale": "Indicates the reliability of data protection mechanisms, fundamental for disaster recovery and business continuity. [cite: 1, 7]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
             "specificDataPoints": ["Backup job logs (success/failure status)", "Backup completion timestamps"],
@@ -1353,13 +1119,6 @@
           "value": 5,
           "unit": "systems",
           "status": "critical",
-          "grafana": {
-            "dashboardUid": "business-continuity-risk",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "12h"
-          },
-          "metricRationale": "Highlights single points of failure related to human capital and specialized knowledge, a key business continuity risk. [cite: 1, 7, 8]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
             "specificDataPoints": ["Identification of critical systems", "Analysis of commit history/authorship for those systems", "Skills matrices", "Team surveys on system knowledge"],
@@ -1379,13 +1138,6 @@
           "value": 92,
           "unit": "%",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "business-continuity-risk",
-            "panelId": 2,
-            "height": 300,
-            "refresh": "6h"
-          },
-          "metricRationale": "Assesses the operational risk associated with aging codebases that may lack current expertise or be built on outdated technology. [cite: 1, 7]",
           "dataSourceProfile": {
             "primaryCategory": "Engineering",
             "specificDataPoints": ["Age of codebase (last significant modification)", "Incident rates for legacy systems", "Availability of skilled personnel for legacy tech", "Known vulnerabilities in underlying legacy components"],
@@ -1405,13 +1157,6 @@
           "value": 2.3,
           "unit": "people",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "business-continuity-risk",
-            "panelId": 3,
-            "height": 300,
-            "refresh": "12h"
-          },
-          "metricRationale": "Directly quantifies the 'bus factor' or key-person dependency for critical systems, informing knowledge transfer and cross-training initiatives. [cite: 1, 7, 8]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
             "specificDataPoints": ["List of critical systems", "Number of individuals with operational/development knowledge per system (from authorship analysis, skills matrix, surveys)"],
@@ -1440,7 +1185,6 @@
           "value": 75,
           "unit": "%",
           "status": "good",
-          "metricRationale": "Indicates the efficiency of the sales process and the supporting technology's role in moving deals forward. [cite: 1]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
             "specificDataPoints": ["CRM data (deal stage changes, time in stage)", "Sales activity logs"],
@@ -1480,7 +1224,6 @@
           "value": 45,
           "unit": "days",
           "status": "good",
-          "metricRationale": "Indicates the overall efficiency of the sales process from opportunity to closure, where supporting technology plays a key role. [cite: 1]",
           "dataSourceProfile": {
             "primaryCategory": "Operational",
             "specificDataPoints": ["CRM data (opportunity creation date, deal closure date)"],
@@ -1639,13 +1382,6 @@
           "value": 75,
           "unit": "k/month",
           "status": "warning",
-          "grafana": {
-            "dashboardUid": "cost-control-tech-debt",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1w"
-          },
-          "metricRationale": "Highlights the ongoing 'interest payments' on technical debt in terms of increased operational expenditure, separate from the principal cost to refactor. [cite: 1, 3]",
           "dataSourceProfile": {
             "primaryCategory": "Financial",
             "specificDataPoints": ["Time spent on bug fixing in legacy/debt areas", "Support ticket volume related to known debt issues", "Effort for workarounds due to tech debt limitations"],
@@ -1665,13 +1401,6 @@
           "value": 1.2,
           "unit": "M",
           "status": "critical",
-          "grafana": {
-            "dashboardUid": "cost-control-meetings",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1M"
-          },
-          "metricRationale": "Quantifies the substantial, often hidden, cost of meetings, providing a financial incentive to improve meeting efficiency and culture. [cite: 3, 7]",
           "dataSourceProfile": {
             "primaryCategory": "Financial",
             "specificDataPoints": ["Meeting Time Utilization data", "Average employee loaded cost (salary + benefits)", "Total number of employees participating in meetings"],
@@ -1691,13 +1420,6 @@
           "value": 78,
           "unit": "%",
           "status": "good",
-          "grafana": {
-            "dashboardUid": "cost-control-cloud",
-            "panelId": 1,
-            "height": 300,
-            "refresh": "1d"
-          },
-          "metricRationale": "Tracks the effectiveness of cloud cost management practices, aiming to maximize value from cloud investments and minimize waste. [cite: 3]",
           "dataSourceProfile": {
             "primaryCategory": "Financial",
             "specificDataPoints": ["Cloud provider billing data (e.g., AWS Cost Explorer, Azure Cost Management)", "Resource tagging for cost allocation", "Utilization metrics for cloud resources"],
@@ -1714,9 +1436,6 @@
     }
   },
   "lastUpdated": "2025-05-30T12:00:00Z",
-  "grafanaConfig": {
-    "baseUrl": "http://localhost:3000"
-  },
   "metricSources": {
     "dora": {
       "description": "DORA (DevOps Research and Assessment) metrics for deployment performance",
